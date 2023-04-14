@@ -26,11 +26,14 @@ public class Server extends Thread{
         while (true) {
             try {
                 clients.add(new ClientHandler(serverSocket.accept()));
-
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
 
+    }
+
+    public static void main(String[] args) {
+        new Server(700);
     }
 }

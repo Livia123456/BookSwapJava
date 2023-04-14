@@ -15,5 +15,25 @@ public class ClientHandler extends Thread{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        new receiverThread().start();
+    }
+
+    private class receiverThread extends Thread {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    System.out.println(ois.readObject());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    private class senderThread extends Thread {
+
     }
 }
