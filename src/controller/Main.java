@@ -9,11 +9,8 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
 
-
-            System.out.println("Hello world!");
             Database db = new Database();
             Connection con = db.getDatabaseConnection();
-            //connectionUtil.getDatabaseConnection();
             String QUERY = String.format("select title from book where book_id = 2");
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery(QUERY);
