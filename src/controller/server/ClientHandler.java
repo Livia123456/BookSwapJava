@@ -1,5 +1,7 @@
 package controller.server;
 
+import model.UserInfo;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -23,7 +25,10 @@ public class ClientHandler extends Thread{
         public void run() {
             while (true) {
                 try {
-                    System.out.println(ois.readObject());
+                    Object message = ois.readObject();
+                    if (message instanceof UserInfo) {
+
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 } catch (ClassNotFoundException e) {
