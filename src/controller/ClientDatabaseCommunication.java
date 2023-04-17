@@ -26,7 +26,7 @@ public class ClientDatabaseCommunication {
                     emailChecked = true;
                     if (rs.getString("user_password").trim().equals(message.getPassword())) {
                         message.setCorrectInfo(true);
-                        System.out.println("Correct!");
+                        //System.out.println("Correct!");
                     }
                 }
             }
@@ -35,7 +35,6 @@ public class ClientDatabaseCommunication {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("hallå");
         return message;
 
     }
