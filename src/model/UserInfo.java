@@ -6,6 +6,7 @@ public class UserInfo implements Serializable {
     static final long serialVersionUID = 42L;
     private String email;
     private String password;
+    private String name;
     private boolean correctInfo = false;
 
     public UserInfo(String name, String password) {
@@ -35,5 +36,13 @@ public class UserInfo implements Serializable {
 
     public void setCorrectInfo(boolean correctInfo) {
         this.correctInfo = correctInfo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

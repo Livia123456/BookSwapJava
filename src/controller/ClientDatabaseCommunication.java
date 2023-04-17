@@ -61,4 +61,39 @@ public class ClientDatabaseCommunication {
         ClientDatabaseCommunication cdc = new ClientDatabaseCommunication();
         cdc.test();
     }
+
+    public boolean checkEmail(String email) {
+        Connection con = database.getDatabaseConnection();
+        String QUERY =  String.format("SELECT count(*) FROM users where user_email = '%s'", email);
+        boolean result = false;
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY);
+            while (rs.next()){
+                if (rs.getInt("count") == 0) {
+                    result = true;
+                }
+            }
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public void newUser(UserInfo userInfo) { //todo detta e ej testat!! pga pgadmin >:(
+        Connection con = database.getDatabaseConnection();
+        String QUERY =  String.format("INSERT INTO users(user_name, user_email, user_password) " +
+                        "values ('%s', '%s', '%s')", userInfo.getName(), userInfo.getEmail(), userInfo.getPassword());
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(QUERY);
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }

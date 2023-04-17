@@ -1,6 +1,7 @@
 package controller.server;
 
 import controller.ClientDatabaseCommunication;
+import model.Email;
 import model.UserInfo;
 
 import java.io.IOException;
@@ -42,12 +43,19 @@ public class ClientHandler extends Thread{
                 while ((message = ois.readObject()) != null) {
                     if (message instanceof UserInfo) {
                         System.out.println("Userinfo received");
-                        login((UserInfo) message);
+                        if (((UserInfo) message).getName() == null || ((UserInfo) message).getName().isEmpty()) {
+                            login((UserInfo) message);
+                        } else {
+                            createNewUser((UserInfo) message);
+                        }
+                        
                     }
-                    if (message instanceof String) {
+                    else if (message instanceof String) {
                         System.out.println(message);
 //                        oos.writeObject("hello world");
 //                        oos.flush();
+                    } else if (message instanceof Email) {
+                        checkEmail((Email) message);
                     }
                 }
             } catch(IOException e){
@@ -59,6 +67,26 @@ public class ClientHandler extends Thread{
         }
     }
 
+    private void createNewUser(UserInfo userInfo) {
+        cdc.newUser(userInfo);
+        try {
+            oos.writeObject(userInfo);
+            oos.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void checkEmail(Email email) {
+        email.setRegistered(cdc.checkEmail(email.getEmail()));
+        try {
+            oos.writeObject(email);
+            oos.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void login(UserInfo message) {
         try {
             oos.writeObject(cdc.checkUserInfo(message));
@@ -66,10 +94,6 @@ public class ClientHandler extends Thread{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
-    private class senderThread extends Thread {
-
-    }
 }
