@@ -4,6 +4,10 @@ import java.sql.*;
 
 public class Database {
 
+
+    /**
+     * Creates and returns a connection to the DB.
+     */
     public Connection getDatabaseConnection(){
 
         String url = "jdbc:postgresql://pgserver.mau.se:5432/bookswap";
