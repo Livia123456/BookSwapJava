@@ -1,5 +1,6 @@
 package controller.server;
 
+import controller.ClientDatabaseCommunication;
 import model.UserInfo;
 
 import java.io.IOException;
@@ -8,12 +9,14 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class ClientHandler extends Thread{
-    private ObjectInputStream ois;
     private ObjectOutputStream oos;
-    public ClientHandler(Socket socket) {
+    private ClientDatabaseCommunication cdc;
+    private Socket socket;
+    public ClientHandler(Socket socket, ClientDatabaseCommunication cdc) {
+        this.cdc = cdc;
+        this.socket = socket;
         try {
             oos = new ObjectOutputStream(socket.getOutputStream());
-            ois = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -21,21 +24,49 @@ public class ClientHandler extends Thread{
     }
 
     private class receiverThread extends Thread {
+        private ObjectInputStream ois;
+
+        public receiverThread() {
+            try {
+                ois = new ObjectInputStream(socket.getInputStream());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
         @Override
         public void run() {
-            while (true) {
-                try {
-                    Object message = ois.readObject();
+            try {
+                Object message;
+                while ((message = ois.readObject()) != null) {
                     if (message instanceof UserInfo) {
-
+                        System.out.println("Userinfo received");
+                        login((UserInfo) message);
                     }
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (ClassNotFoundException e) {
-                    throw new RuntimeException(e);
+                    if (message instanceof String) {
+                        System.out.println(message);
+//                        oos.writeObject("hello world");
+//                        oos.flush();
+                    }
                 }
+            } catch(IOException e){
+                throw new RuntimeException(e);
+            } catch(ClassNotFoundException e){
+                throw new RuntimeException(e);
             }
+
         }
+    }
+
+    private void login(UserInfo message) {
+        try {
+            oos.writeObject(cdc.checkUserInfo(message));
+            oos.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private class senderThread extends Thread {
