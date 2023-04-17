@@ -38,9 +38,12 @@ public class DBtest {
         /**
          * Prints the books (titles) added by a specific user.
          */
-        /*test.printArray(book_test.getTitlesByUser(1)); */
+        test.printArray(book_test.getTitlesByUser(1)); 
 
-        test.printArray(book_test.getBook(1));
+        /**
+         * Not done
+         */
+        /* test.printArray(book_test.getBook(1)); */
 
 
     }
