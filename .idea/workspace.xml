@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b47aa8b8-0ca0-4b19-ab85-e73d42c6eac6" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change afterPath="$PROJECT_DIR$/src/model/Email.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BookSwapJava.iml" beforeDir="false" afterPath="$PROJECT_DIR$/BookSwapJava.iml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/src/controller/ClientDatabaseCommunication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ClientDatabaseCommunication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Database.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/server/ClientHandler.java" afterDir="false" />
@@ -117,16 +122,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/controller/server/ClientHandler.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

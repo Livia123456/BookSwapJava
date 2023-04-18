@@ -20,4 +20,21 @@ public class Database {
             return null;
         }
     }
+
+    public void terminateIdle() throws SQLException{
+        Connection con = this.getDatabaseConnection();
+        String selectPids = "SELECT pid from pg_stat_activity where state = 'idle'";
+        Statement getPids = con.createStatement();
+        ResultSet rs = getPids.executeQuery(selectPids);
+
+        while (rs.next()){
+            PreparedStatement pstmt = con.prepareStatement("Select pg_terminate_backend(?)");
+            pstmt.setInt(1, rs.getInt("pid"));
+            pstmt.execute();
+        }
+
+        rs.close();
+        getPids.close();
+        con.close();
+    }
 }
