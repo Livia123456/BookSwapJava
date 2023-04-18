@@ -7,7 +7,9 @@ public class UserInfo implements Serializable {
     private String email;
     private String password;
     private String name;
+    private int userId;
     private boolean correctInfo = false;
+
 
     public UserInfo(String email, String password) {
         this.email = email;
@@ -42,7 +44,8 @@ public class UserInfo implements Serializable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
+
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
 }

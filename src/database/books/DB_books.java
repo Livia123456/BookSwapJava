@@ -67,13 +67,13 @@ public class DB_books {
     /**
      * Adds a book from parameters.
      */
-    public void addBook(int user_id, String title, String author, String release_year, String isbn, String genre, String imagePath) throws SQLException {
+    public void addBook(int user_id, String title, String author, String release_year, String genre, String imagePath) throws SQLException {
 
         Connection con = db.getDatabaseConnection();
 
-        String QUERY = String.format("insert into book(book_id, user_id, title, author, release_year, isbn, genre, image_path)" +
-                "values(default, %d, '%s', '%s', '%s', '%s', '%s', '%s');",
-                user_id, title, author, release_year, isbn, genre, imagePath);
+        String QUERY = String.format("insert into book(book_id, user_id, title, author, release_year, genre, image_path)" +
+                "values(default, %d, '%s', '%s', '%s', '%s', '%s');",
+                user_id, title, author, release_year, genre, imagePath);
         Statement stmt = con.createStatement();
         stmt.executeUpdate(QUERY);
 

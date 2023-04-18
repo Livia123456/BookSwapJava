@@ -1,6 +1,7 @@
 package controller.server;
 
 import database.user.DB_user;
+import model.Book;
 import model.Email;
 import model.UserInfo;
 
@@ -13,6 +14,7 @@ public class ClientHandler {
     private ObjectOutputStream oos;
     private DB_user dBuser;
     private Socket socket;
+    private UserInfo currentUser;
     public ClientHandler(Socket socket, DB_user dBuser) {
         this.dBuser = dBuser;
         this.socket = socket;
@@ -45,8 +47,10 @@ public class ClientHandler {
                         System.out.println("Userinfo received");
                         if (((UserInfo) message).getName() == null || ((UserInfo) message).getName().isEmpty()) {
                             login((UserInfo) message);
+                            currentUser = (UserInfo) message;
                         } else {
                             createNewUser((UserInfo) message);
+                            currentUser = (UserInfo) message;
                         }
                         
                     }
@@ -56,6 +60,9 @@ public class ClientHandler {
 //                        oos.flush();
                     } else if (message instanceof Email) {
                         checkEmail((Email) message);
+                    } else if (message instanceof Book) {
+                        Book book = (Book) message;
+
                     }
                 }
             } catch(IOException e){

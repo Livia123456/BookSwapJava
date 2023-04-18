@@ -52,6 +52,7 @@ public class DB_user {
                     }
                 }
             }
+            message.setUserId(getUserId(message));
             stmt.close();
             con.close();
             db.terminateIdle();
@@ -59,6 +60,23 @@ public class DB_user {
             throw new RuntimeException(e);
         }
         return message;
+    }
+
+    public int getUserId(UserInfo message) throws SQLException {
+        Connection con = db.getDatabaseConnection();
+        String QUERY = String.format("SELECT user_id FROM users WHERE user_email = '%s' AND user_password = '%s' ",
+                message.getEmail(), message.getPassword());
+
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(QUERY);
+
+        int userId = rs.getInt("user_id");
+
+        stmt.close();
+        con.close();
+        db.terminateIdle();
+
+        return userId;
     }
 
     public boolean checkEmail(String email) {
