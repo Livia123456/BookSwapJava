@@ -2,6 +2,7 @@ package database;
 
 
 import database.books.DB_books;
+import database.chat.DB_chat;
 import database.user.DB_user;
 
 import java.sql.SQLException;
@@ -24,6 +25,8 @@ public class DBtest {
         DBtest test = new DBtest();
 
         DB_user user_test = new DB_user();
+
+        DB_chat chat_test = new DB_chat();
 
         DB_books book_test = new DB_books();
 
