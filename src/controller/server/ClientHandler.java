@@ -69,6 +69,7 @@ public class ClientHandler {
 
     private void createNewUser(UserInfo userInfo) {
         dBuser.newUser(userInfo);
+        userInfo.setCorrectInfo(true);
         try {
             oos.writeObject(userInfo);
             oos.flush();
