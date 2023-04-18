@@ -10,7 +10,6 @@ public class Server extends Thread{
     private ServerSocket serverSocket;
     private int port;
     private DB_user dBUser;
-
     private ArrayList<ClientHandler> clients;
 
     public Server(int port) {
