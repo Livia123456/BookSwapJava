@@ -10,25 +10,31 @@ import java.util.ArrayList;
 
 public class DB_books {
 
+    private Database db;
+
+    public DB_books(){
+        db = new Database();
+    }
 
     public ArrayList<String> getBook(int book_id) throws SQLException {
 
         ArrayList<String> book = new ArrayList<>();
 
-        Database db = new Database();
         Connection con = db.getDatabaseConnection();
 
 
         String QUERY = String.format("select * from book where book_id = %d", book_id);
-        Statement statement = con.createStatement();
-        ResultSet rs = statement.executeQuery(QUERY);
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(QUERY);
         while (rs.next())
         {
 
 
         }
 
+        stmt.close();
         con.close();
+        db.terminateIdle();
 
         return book;
     }
@@ -41,18 +47,19 @@ public class DB_books {
 
         ArrayList<String> titles = new ArrayList<>();
 
-        Database db = new Database();
         Connection con = db.getDatabaseConnection();
 
         String QUERY = String.format("select title from book where user_id = %d", user_id);
-        Statement statement = con.createStatement();
-        ResultSet rs = statement.executeQuery(QUERY);
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery(QUERY);
 
         while (rs.next()) {
             titles.add(rs.getString("title"));
         }
 
+        stmt.close();
         con.close();
+        db.terminateIdle();
 
         return titles;
     }
@@ -62,7 +69,6 @@ public class DB_books {
      */
     public void addBook(int user_id, String title, String author, String release_year, String isbn, String genre, String imagePath) throws SQLException {
 
-        Database db = new Database();
         Connection con = db.getDatabaseConnection();
 
         String QUERY = String.format("insert into book(book_id, user_id, title, author, release_year, isbn, genre, image_path)" +
@@ -71,7 +77,9 @@ public class DB_books {
         Statement stmt = con.createStatement();
         stmt.executeUpdate(QUERY);
 
+        stmt.close();
         con.close();
+        db.terminateIdle();
 
     }
 
