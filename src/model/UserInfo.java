@@ -9,8 +9,8 @@ public class UserInfo implements Serializable {
     private String name;
     private boolean correctInfo = false;
 
-    public UserInfo(String email, String password) {
-        this.email = email;
+    public UserInfo(String name, String password) {
+        this.email = name;
         this.password = password;
     }
 
