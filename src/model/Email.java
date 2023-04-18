@@ -6,7 +6,9 @@ public class Email implements Serializable {
     static final long serialVersionUID = 43L;
     private String email;
     private boolean isRegistered = false;
-
+    public Email(String email) {
+        this.email = email;
+    }
     public String getEmail() {
         return email;
     }
