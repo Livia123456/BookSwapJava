@@ -1,6 +1,6 @@
 package controller.server;
 
-import controller.ClientDatabaseCommunication;
+import database.user.DB_user;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -9,13 +9,13 @@ import java.util.ArrayList;
 public class Server extends Thread{
     private ServerSocket serverSocket;
     private int port;
-    private ClientDatabaseCommunication cdc;
+    private DB_user dBUser;
 
     private ArrayList<ClientHandler> clients;
 
     public Server(int port) {
         this.port = port;
-        cdc = new ClientDatabaseCommunication();
+        dBUser = new DB_user();
         clients = new ArrayList<>();
         try {
             serverSocket = new ServerSocket(port);
@@ -29,7 +29,7 @@ public class Server extends Thread{
     public void run() {
         while (true) {
             try {
-                clients.add(new ClientHandler(serverSocket.accept(), cdc));
+                clients.add(new ClientHandler(serverSocket.accept(), dBUser));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

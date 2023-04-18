@@ -1,6 +1,6 @@
 package controller.server;
 
-import controller.ClientDatabaseCommunication;
+import database.user.DB_user;
 import model.Email;
 import model.UserInfo;
 
@@ -11,10 +11,10 @@ import java.net.Socket;
 
 public class ClientHandler {
     private ObjectOutputStream oos;
-    private ClientDatabaseCommunication cdc;
+    private DB_user dBuser;
     private Socket socket;
-    public ClientHandler(Socket socket, ClientDatabaseCommunication cdc) {
-        this.cdc = cdc;
+    public ClientHandler(Socket socket, DB_user dBuser) {
+        this.dBuser = dBuser;
         this.socket = socket;
         try {
             oos = new ObjectOutputStream(socket.getOutputStream());
@@ -68,7 +68,7 @@ public class ClientHandler {
     }
 
     private void createNewUser(UserInfo userInfo) {
-        cdc.newUser(userInfo);
+        dBuser.newUser(userInfo);
         try {
             oos.writeObject(userInfo);
             oos.flush();
@@ -78,7 +78,7 @@ public class ClientHandler {
     }
 
     private void checkEmail(Email email) {
-        email.setRegistered(cdc.checkEmail(email.getEmail()));
+        email.setRegistered(dBuser.checkEmail(email.getEmail()));
         try {
             oos.writeObject(email);
             oos.flush();
@@ -89,7 +89,7 @@ public class ClientHandler {
 
     private void login(UserInfo message) {
         try {
-            oos.writeObject(cdc.checkUserInfo(message));
+            oos.writeObject(dBuser.checkUserInfo(message));
             oos.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
