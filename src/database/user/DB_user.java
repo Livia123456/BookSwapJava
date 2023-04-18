@@ -29,10 +29,10 @@ public class DB_user {
             stmt.close();
             con.close();
             db.terminateIdle();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public UserInfo checkUserInfo(UserInfo message) {
@@ -82,7 +82,6 @@ public class DB_user {
         }
         return result;
     }
-
 
 
 
