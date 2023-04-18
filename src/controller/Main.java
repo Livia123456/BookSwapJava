@@ -13,7 +13,6 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
 
-<<<<<<< HEAD
             Database db = new Database();
             Connection con = db.getDatabaseConnection();
             String QUERY = String.format("select title from book where book_id = 2");
@@ -25,7 +24,5 @@ public class Main {
             }
 
 
-=======
->>>>>>> databas
     }
 }

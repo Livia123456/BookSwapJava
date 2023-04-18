@@ -11,8 +11,8 @@ public class Database {
     public Connection getDatabaseConnection(){
 
         String url = "jdbc:postgresql://pgserver.mau.se:5432/bookswap";
-        String user = "an4283";
-        String password = "uhjeqc7p";
+        String user = "an8043";
+        String password = "nlbpxnn6";
 
         try{
             Connection conn = DriverManager.getConnection(url, user, password);
