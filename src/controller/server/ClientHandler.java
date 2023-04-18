@@ -9,7 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class ClientHandler extends Thread{
+public class ClientHandler {
     private ObjectOutputStream oos;
     private ClientDatabaseCommunication cdc;
     private Socket socket;

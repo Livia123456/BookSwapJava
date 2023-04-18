@@ -32,11 +32,11 @@ public class ClientDatabaseCommunication {
             }
             stmt.close();
             con.close();
+            database.terminateIdle();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return message;
-
     }
 
     private void test() {
@@ -75,6 +75,7 @@ public class ClientDatabaseCommunication {
             }
             stmt.close();
             con.close();
+            database.terminateIdle();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -90,6 +91,7 @@ public class ClientDatabaseCommunication {
             stmt.executeUpdate(QUERY);
             stmt.close();
             con.close();
+            database.terminateIdle();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
