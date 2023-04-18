@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.SQLException;
 
 public class ClientHandler {
     private ObjectOutputStream oos;
@@ -61,13 +62,13 @@ public class ClientHandler {
                     } else if (message instanceof Email) {
                         checkEmail((Email) message);
                     } else if (message instanceof Book) {
+                        System.out.println("Vi kom hit");
                         Book book = (Book) message;
+                        book.upload();
 
                     }
                 }
-            } catch(IOException e){
-                throw new RuntimeException(e);
-            } catch(ClassNotFoundException e){
+            } catch(IOException | ClassNotFoundException | SQLException e){
                 throw new RuntimeException(e);
             }
 
