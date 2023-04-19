@@ -1,6 +1,7 @@
 package controller.server;
 
 import database.user.DB_user;
+import model.Book;
 import model.Email;
 import model.UserInfo;
 
@@ -8,11 +9,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.SQLException;
 
 public class ClientHandler {
     private ObjectOutputStream oos;
     private DB_user dBuser;
     private Socket socket;
+    private UserInfo currentUser;
     public ClientHandler(Socket socket, DB_user dBuser) {
         this.dBuser = dBuser;
         this.socket = socket;
@@ -45,8 +48,10 @@ public class ClientHandler {
                         System.out.println("Userinfo received");
                         if (((UserInfo) message).getName() == null || ((UserInfo) message).getName().isEmpty()) {
                             login((UserInfo) message);
+                            currentUser = (UserInfo) message;
                         } else {
                             createNewUser((UserInfo) message);
+                            currentUser = (UserInfo) message;
                         }
                         
                     }
@@ -56,11 +61,14 @@ public class ClientHandler {
 //                        oos.flush();
                     } else if (message instanceof Email) {
                         checkEmail((Email) message);
+                    } else if (message instanceof Book) {
+                        System.out.println("Vi kom hit");
+                        Book book = (Book) message;
+                        book.upload();
+
                     }
                 }
-            } catch(IOException e){
-                throw new RuntimeException(e);
-            } catch(ClassNotFoundException e){
+            } catch(IOException | ClassNotFoundException | SQLException e){
                 throw new RuntimeException(e);
             }
 
