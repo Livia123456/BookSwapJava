@@ -63,6 +63,7 @@ public class DB_user {
     }
 
     public int getUserId(UserInfo message) throws SQLException {
+        int userId = 0;
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("SELECT user_id FROM users WHERE user_email = '%s' AND user_password = '%s' ",
                 message.getEmail(), message.getPassword());
@@ -70,7 +71,9 @@ public class DB_user {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(QUERY);
 
-        int userId = rs.getInt("user_id");
+        while(rs.next()) {
+             userId = rs.getInt("user_id");
+        }
 
         stmt.close();
         con.close();
