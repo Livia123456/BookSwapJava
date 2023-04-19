@@ -25,7 +25,7 @@ public class Book implements Serializable {
 
         DB_books dbBooks = new DB_books();
 
-        dbBooks.addBook(1, title, author, release_date, genre, null);
+        dbBooks.addBook(uploadedBy.getUserId(), title, author, release_date, genre, null);
 
     }
 }
