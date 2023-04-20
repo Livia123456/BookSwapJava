@@ -16,26 +16,28 @@ public class DatabaseBooks {
         db = new Database();
     }
 
-    public ArrayList<String> getBook(int book_id) throws SQLException { //todo: ej klar
+    public ArrayList<String> getBook(int book_id) { //todo: ej klar
 
         ArrayList<String> book = new ArrayList<>();
 
         Connection con = db.getDatabaseConnection();
-
-
         String QUERY = String.format("select * from book where book_id = %d", book_id);
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(QUERY);
-        while (rs.next())
-        {
 
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY);
 
+            while (rs.next()) {
+
+            }
+
+            stmt.close();
+            con.close();
+            db.terminateIdle();
+
+        } catch(Exception e){
+            e.printStackTrace();
         }
-
-        stmt.close();
-        con.close();
-        db.terminateIdle();
-
         return book;
     }
 
@@ -43,23 +45,28 @@ public class DatabaseBooks {
     /**
      * Returns title of a book from user_id.
      */
-    public ArrayList<String> getTitlesByUser(int user_id) throws SQLException {
+    public ArrayList<String> getTitlesByUser(int user_id) {
 
         ArrayList<String> titles = new ArrayList<>();
 
         Connection con = db.getDatabaseConnection();
 
         String QUERY = String.format("select title from book where user_id = %d", user_id);
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery(QUERY);
 
-        while (rs.next()) {
-            titles.add(rs.getString("title"));
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY);
+
+            while (rs.next()) {
+                titles.add(rs.getString("title"));
+            }
+            stmt.close();
+            con.close();
+            db.terminateIdle();
+
+        } catch (Exception e){
+            e.printStackTrace();
         }
-
-        stmt.close();
-        con.close();
-        db.terminateIdle();
 
         return titles;
     }
