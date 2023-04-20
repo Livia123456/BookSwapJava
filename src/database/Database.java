@@ -17,7 +17,6 @@ public class Database {
         try{
             Connection conn = DriverManager.getConnection(url, user, password);
             return conn;
-
         } catch (Exception e){
             System.out.println(e);
             e.printStackTrace();
@@ -26,6 +25,7 @@ public class Database {
     }
 
     public void terminateIdle() throws SQLException{
+
         Connection con = this.getDatabaseConnection();
         String selectPids = "SELECT pid from pg_stat_activity where state = 'idle'";
         Statement getPids = con.createStatement();

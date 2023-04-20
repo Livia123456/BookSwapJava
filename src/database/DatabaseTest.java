@@ -1,9 +1,9 @@
 package database;
 
 
-import database.books.DB_books;
-import database.chat.DB_chat;
-import database.user.DB_user;
+import database.books.DatabaseBooks;
+import database.chat.DatabaseChat;
+import database.user.DatabaseUser;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Class that tests the database and it's querys.
  */
-public class DBtest {
+public class DatabaseTest {
 
     public void printArray(ArrayList<String> list){
         for (int i = 0; i < list.size(); i++) {
@@ -22,13 +22,13 @@ public class DBtest {
 
     public static void main(String[] args) throws SQLException {
 
-        DBtest test = new DBtest();
+        DatabaseTest test = new DatabaseTest();
 
-        DB_user user_test = new DB_user();
+        DatabaseUser userTest = new DatabaseUser();
 
-        DB_chat chat_test = new DB_chat();
+        DatabaseChat chatTest = new DatabaseChat();
 
-        DB_books book_test = new DB_books();
+        DatabaseBooks bookTest = new DatabaseBooks();
 
 
         /**
@@ -41,7 +41,7 @@ public class DBtest {
         /**
          * Prints the books (titles) added by a specific user.
          */
-        test.printArray(book_test.getTitlesByUser(1)); 
+        test.printArray(bookTest.getTitlesByUser(1));
 
         /**
          * Not done

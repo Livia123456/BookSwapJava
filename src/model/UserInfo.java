@@ -3,12 +3,15 @@ package model;
 import java.io.Serializable;
 
 public class UserInfo implements Serializable {
+
+    //todo: + Email-objekt
     static final long serialVersionUID = 42L;
     private String email;
     private String password;
     private String name;
     private int userId;
     private boolean correctInfo = false;
+
 
     public UserInfo(String email, String password) {
         this.email = email;

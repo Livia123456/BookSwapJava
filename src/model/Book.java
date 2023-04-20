@@ -1,7 +1,6 @@
 package model;
 
-import database.books.DB_books;
-import database.user.DB_user;
+import database.books.DatabaseBooks;
 
 import javax.swing.*;
 import java.io.Serializable;
@@ -19,11 +18,8 @@ public class Book implements Serializable {
 
 
     public void upload(int userId) throws SQLException {
-        //DB_user dbUser = new DB_user();
-        //int userId = dbUser.getUserId(uploadedBy);
 
-
-        DB_books dbBooks = new DB_books();
+        DatabaseBooks dbBooks = new DatabaseBooks();
 
         dbBooks.addBook(userId, title, author, release_date, genre, null);
 

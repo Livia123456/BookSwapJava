@@ -1,6 +1,6 @@
 package controller.server;
 
-import database.user.DB_user;
+import database.user.DatabaseUser;
 import model.Book;
 import model.Email;
 import model.UserInfo;
@@ -13,11 +13,13 @@ import java.sql.SQLException;
 
 public class ClientHandler {
     private ObjectOutputStream oos;
-    private DB_user dBuser;
+    private DatabaseUser dbUser;
     private Socket socket;
     private UserInfo currentUser;
-    public ClientHandler(Socket socket, DB_user dBuser) {
-        this.dBuser = dBuser;
+
+
+    public ClientHandler(Socket socket, DatabaseUser dbUser) {
+        this.dbUser = dbUser;
         this.socket = socket;
         try {
             oos = new ObjectOutputStream(socket.getOutputStream());
@@ -27,55 +29,10 @@ public class ClientHandler {
         new receiverThread().start();
     }
 
-    private class receiverThread extends Thread {
-        private ObjectInputStream ois;
-
-        public receiverThread() {
-            try {
-                ois = new ObjectInputStream(socket.getInputStream());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-        }
-
-        @Override
-        public void run() {
-            try {
-                Object message;
-                while ((message = ois.readObject()) != null) {
-                    if (message instanceof UserInfo) {
-                        System.out.println("Userinfo received");
-                        if (((UserInfo) message).getName() == null || ((UserInfo) message).getName().isEmpty()) {
-                            login((UserInfo) message);
-                            currentUser = (UserInfo) message;
-                        } else {
-                            createNewUser((UserInfo) message);
-                            currentUser = (UserInfo) message;
-                        }
-                        
-                    }
-                    else if (message instanceof String) {
-                        System.out.println(message);
-//                        oos.writeObject("hello world");
-//                        oos.flush();
-                    } else if (message instanceof Email) {
-                        checkEmail((Email) message);
-                    } else if (message instanceof Book) {
-                        Book book = (Book) message;
-                        book.upload(currentUser.getUserId());
-
-                    }
-                }
-            } catch(IOException | ClassNotFoundException | SQLException e){
-                throw new RuntimeException(e);
-            }
-
-        }
-    }
 
     private void createNewUser(UserInfo userInfo) {
-        dBuser.newUser(userInfo);
+
+        dbUser.newUser(userInfo);
         userInfo.setCorrectInfo(true);
         
         try {
@@ -87,7 +44,9 @@ public class ClientHandler {
     }
 
     private void checkEmail(Email email) {
-        email.setRegistered(dBuser.checkEmail(email.getEmail()));
+
+        email.setRegistered(dbUser.checkEmail(email.getEmailAddress()));
+
         try {
             oos.writeObject(email);
             oos.flush();
@@ -96,13 +55,65 @@ public class ClientHandler {
         }
     }
 
-    private void login(UserInfo message) {
+
+    private void logIn(UserInfo userInfo) {
+
         try {
-            oos.writeObject(dBuser.checkUserInfo(message));
+            oos.writeObject(dbUser.checkUserInfo(userInfo));
             oos.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+
+    private class receiverThread extends Thread {
+
+        private ObjectInputStream ois;
+
+        public receiverThread() {
+            try {
+                ois = new ObjectInputStream(socket.getInputStream());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        @Override
+        public void run() {
+            try {
+                Object message;
+                while ((message = ois.readObject()) != null) {
+
+                    if (message instanceof UserInfo) {
+                        System.out.println("Userinfo received");
+                        if (((UserInfo) message).getName() == null || ((UserInfo) message).getName().isEmpty()) {
+                            logIn((UserInfo) message);
+                            currentUser = (UserInfo) message;
+                        } else {
+                            createNewUser((UserInfo) message);
+                            currentUser = (UserInfo) message;
+                        }
+                    }
+
+                    else if (message instanceof String) {
+                        System.out.println(message);
+                    }
+
+                    else if (message instanceof Email) {
+                        checkEmail((Email) message);
+                    }
+
+                    else if (message instanceof Book) {
+                        Book book = (Book) message;
+                        book.upload(currentUser.getUserId());
+                    }
+                }
+            } catch(IOException | ClassNotFoundException | SQLException e){
+                throw new RuntimeException(e);
+            }
+
+        }
+    }
 }

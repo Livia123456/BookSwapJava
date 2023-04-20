@@ -8,11 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DB_user {
+public class DatabaseUser {
 
     private Database db;
 
-    public DB_user(){
+    public DatabaseUser(){
         db = new Database();
     }
 
@@ -22,10 +22,12 @@ public class DB_user {
         Connection con = db.getDatabaseConnection();
 
         String QUERY =  String.format("INSERT INTO users(user_name, user_email, user_password) " +
-                "values ('%s', '%s', '%s')", userInfo.getName(), userInfo.getEmail(), userInfo.getPassword());
+                "VALUES ('%s', '%s', '%s')", userInfo.getName(), userInfo.getEmail(), userInfo.getPassword());
+
         try {
             Statement stmt = con.createStatement();
             stmt.executeUpdate(QUERY);
+
             stmt.close();
             con.close();
             db.terminateIdle();
@@ -35,38 +37,38 @@ public class DB_user {
         }
     }
 
-    public UserInfo checkUserInfo(UserInfo message) {
+    public UserInfo checkUserInfo(UserInfo userInfo) {
 
         Connection con = db.getDatabaseConnection();
         String QUERY =  String.format("SELECT * FROM users");
+
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY);
             boolean emailChecked = false;
             while (rs.next() && !emailChecked){
-                if(rs.getString("user_email").trim().equals(message.getEmail())) {
+                if(rs.getString("user_email").trim().equals(userInfo.getEmail())) {
                     emailChecked = true;
-                    if (rs.getString("user_password").trim().equals(message.getPassword())) {
-                        message.setCorrectInfo(true);
-                        //System.out.println("Correct!");
+                    if (rs.getString("user_password").trim().equals(userInfo.getPassword())) {
+                        userInfo.setCorrectInfo(true);
                     }
                 }
             }
-            message.setUserId(getUserId(message));
+            userInfo.setUserId(getUserId(userInfo));
             stmt.close();
             con.close();
             db.terminateIdle();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return message;
+        return userInfo;
     }
 
-    public int getUserId(UserInfo message) throws SQLException {
+    public int getUserId(UserInfo userInfo) throws SQLException {
         int userId = 0;
         Connection con = db.getDatabaseConnection();
-        String QUERY = String.format("SELECT user_id FROM users WHERE user_email = '%s' AND user_password = '%s' ",
-                message.getEmail(), message.getPassword());
+        String QUERY = String.format("SELECT user_id FROM users WHERE user_email LIKE '%s' AND user_password LIKE '%s' ",
+                userInfo.getEmail(), userInfo.getPassword());
 
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(QUERY);
@@ -85,8 +87,9 @@ public class DB_user {
     public boolean checkEmail(String email) {
 
         Connection con = db.getDatabaseConnection();
-        String QUERY =  String.format("SELECT count(*) FROM users where user_email = '%s'", email);
+        String QUERY =  String.format("SELECT COUNT(*) FROM users WHERE user_email LIKE '%s'", email);
         boolean result = false;
+
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY);
@@ -103,7 +106,5 @@ public class DB_user {
         }
         return result;
     }
-
-
 
 }

@@ -8,15 +8,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class DB_books {
+public class DatabaseBooks {
 
     private Database db;
 
-    public DB_books(){
+    public DatabaseBooks(){
         db = new Database();
     }
 
-    public ArrayList<String> getBook(int book_id) throws SQLException {
+    public ArrayList<String> getBook(int book_id) throws SQLException { //todo: ej klar
 
         ArrayList<String> book = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class DB_books {
     /**
      * Adds a book from parameters.
      */
-    public void addBook(int user_id, String title, String author, String release_year, String genre, String imagePath) throws SQLException {
+    public void addBook(int user_id, String title, String author, String release_year, String genre, String imagePath) {
 
         System.out.println("Vi kom hit");
 
@@ -76,13 +76,18 @@ public class DB_books {
         String QUERY = String.format("insert into book(book_id, user_id, title, author, release_year, genre, image_path)" +
                 "values(default, %d, '%s', '%s', '%s', '%s', '%s');",
                 user_id, title, author, release_year, genre, imagePath);
-        Statement stmt = con.createStatement();
-        stmt.executeUpdate(QUERY);
+        Statement stmt = null;
+        try {
+            stmt = con.createStatement();
+            stmt.executeUpdate(QUERY);
 
-        stmt.close();
-        con.close();
-        db.terminateIdle();
+            stmt.close();
+            con.close();
+            db.terminateIdle();
+        }catch(Exception e){
+             e.printStackTrace();
 
+        }
     }
-
 }
+

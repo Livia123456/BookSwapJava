@@ -2,11 +2,11 @@ package database.chat;
 
 import database.Database;
 
-public class DB_chat {
+public class DatabaseChat {
 
     private Database db;
 
-    public DB_chat(){
+    public DatabaseChat(){
         db = new Database();
     }
 
