@@ -93,11 +93,10 @@ public class ClientHandler {
                         System.out.println("Userinfo received");
                         if (((UserInfo) message).getName() == null || ((UserInfo) message).getName().isEmpty()) {
                             logIn((UserInfo) message);
-                            currentUser = (UserInfo) message;
                         } else {
                             createNewUser((UserInfo) message);
-                            currentUser = (UserInfo) message;
                         }
+                        currentUser = (UserInfo) message;
                     }
 
                     else if (message instanceof String) {
@@ -109,12 +108,12 @@ public class ClientHandler {
                     }
 
                     else if (message instanceof Book) {
-
-                        Book book = (Book) message;
-                        book.upload(currentUser.getUserId());
+                        ((Book) message).setUploadedBy(currentUser);
+                        dbBook.addBook((Book) message);
+                        //((Book) message).upload(currentUser.getUserId());
                     }
                 }
-            } catch(IOException | ClassNotFoundException | SQLException e){
+            } catch(IOException | ClassNotFoundException e){
                 throw new RuntimeException(e);
             }
 

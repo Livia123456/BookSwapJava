@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c04fab0-5ef9-47d8-aefb-6ba4af81e6f5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/server/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/database/books/DatabaseBooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/books/DatabaseBooks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/user/DatabaseUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/user/DatabaseUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Book.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,5 +126,21 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/controller/server/ClientHandler.java</url>
+          <line>98</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/database/user/DatabaseUser.java</url>
+          <line>60</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

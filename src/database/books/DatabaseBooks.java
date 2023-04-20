@@ -1,6 +1,7 @@
 package database.books;
 
 import database.Database;
+import model.Book;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -67,7 +68,8 @@ public class DatabaseBooks {
     /**
      * Adds a book from parameters.
      */
-    public void addBook(int user_id, String title, String author, String release_year, String genre, String imagePath) {
+    //public void addBook(int user_id, String title, String author, String release_year, String genre, String imagePath) {
+    public void addBook(Book book) {
         //todo ändra satt den tar emot en bok istället
         System.out.println("Vi kom hit");
 
@@ -75,16 +77,24 @@ public class DatabaseBooks {
 
         String QUERY = String.format("insert into book(book_id, user_id, title, author, release_year, genre, image_path)" +
                 "values(default, %d, '%s', '%s', '%s', '%s', '%s');",
-                user_id, title, author, release_year, genre, imagePath);
-        Statement stmt = null;
+                book.getUploadedBy().getUserId(), book.getTitle(), book.getAuthor(), book.getRelease_date(),
+                book.getGenre(), "imagepath...");
+                //user_id, title, author, release_year, genre, imagePath);
         try {
-            stmt = con.createStatement();
+            Statement stmt = con.createStatement();
             stmt.executeUpdate(QUERY);
+
+            QUERY = "SELECT * from book";
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY);
+            while (rs.next()) {
+                System.out.println(rs.getString("title"));
+            }
 
             stmt.close();
             con.close();
             db.terminateIdle();
-        }catch(Exception e){
+        } catch (Exception e) {
              e.printStackTrace();
 
         }
