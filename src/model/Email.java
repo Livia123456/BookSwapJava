@@ -2,6 +2,10 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * Class to store an email address.
+ * @author Livia Tengelin, Kasper Lindberg
+ */
 public class Email implements Serializable {
 
 
