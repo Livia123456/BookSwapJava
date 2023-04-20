@@ -47,14 +47,15 @@ public class DatabaseUser {
             ResultSet rs = stmt.executeQuery(QUERY);
             boolean emailChecked = false;
             while (rs.next() && !emailChecked){
-                if(rs.getString("user_email").trim().equals(userInfo.getEmail())) {
+                if(rs.getString("user_email").trim().equals(userInfo.getEmail().getEmailAddress())) {
                     emailChecked = true;
                     if (rs.getString("user_password").trim().equals(userInfo.getPassword())) {
                         userInfo.setCorrectInfo(true);
                     }
+                   userInfo.setUserId(rs.getInt("user_id"));
                 }
             }
-            userInfo.setUserId(getUserId(userInfo));
+
             stmt.close();
             con.close();
             db.terminateIdle();

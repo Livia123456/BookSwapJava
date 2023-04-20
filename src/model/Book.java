@@ -24,9 +24,9 @@ public class Book implements Serializable {
 
     public void upload(int userId) throws SQLException {// todo fixa detta till DatabaseBook-klassen
 
-        DatabaseBooks dbBooks = new DatabaseBooks();
-
-        dbBooks.addBook(userId, title, author, release_date, genre, null);
+//        DatabaseBooks dbBooks = new DatabaseBooks();
+//
+//        dbBooks.addBook(userId, title, author, release_date, genre, null);
 
     }
 
