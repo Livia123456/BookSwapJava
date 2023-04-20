@@ -78,6 +78,10 @@ public class Book implements Serializable {
         this.uploadedBy = uploadedBy;
     }
 
+    /**
+     * Builder class to create a book-object.
+     * @author Livia Tengelin
+     */
     public class BookBuilder {
 
         private Book book;
