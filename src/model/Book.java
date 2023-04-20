@@ -77,4 +77,43 @@ public class Book implements Serializable {
     public void setUploadedBy(UserInfo uploadedBy) {
         this.uploadedBy = uploadedBy;
     }
+
+    public class BookBuilder {
+
+        private Book book;
+
+        public BookBuilder() {
+            book = new Book();
+        }
+        public BookBuilder title(String title) {
+            book.title = title;
+            return this;
+        }
+        public BookBuilder author(String author) {
+            book.author = author;
+            return this;
+        }
+        public BookBuilder release_date(String release_date) {
+            book.release_date = release_date;
+            return this;
+        }
+        public BookBuilder genre(String genre) {
+            book.genre = genre;
+            return this;
+        }
+
+        public BookBuilder image(ImageIcon image) {
+            book.image = image;
+            return this;
+        }
+        public BookBuilder uploadedBy(UserInfo uploadedBy) {
+            book.uploadedBy = uploadedBy;
+            return this;
+        }
+
+        public Book build() {
+            return book;
+        }
+
+    }
 }
