@@ -2,23 +2,26 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * Class to store information about a user.
+ * @author Livia Tengelin, Kasper Lindberg, Sebasitan Zulj
+ */
 public class UserInfo implements Serializable {
 
-    //todo: + Email-objekt
     static final long serialVersionUID = 42L;
-    private String email;
+    private Email email;
     private String password;
     private String name;
     private int userId;
     private boolean correctInfo = false;
 
 
-    public UserInfo(String email, String password) {
+    public UserInfo(Email email, String password) {
         this.email = email;
         this.password = password;
     }
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
@@ -26,7 +29,7 @@ public class UserInfo implements Serializable {
         return password;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(Email email) {
         this.email = email;
     }
 
