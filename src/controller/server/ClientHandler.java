@@ -1,5 +1,6 @@
 package controller.server;
 
+import database.books.DatabaseBooks;
 import database.user.DatabaseUser;
 import model.Book;
 import model.Email;
@@ -14,12 +15,14 @@ import java.sql.SQLException;
 public class ClientHandler {
     private ObjectOutputStream oos;
     private DatabaseUser dbUser;
+    private DatabaseBooks dbBook;
     private Socket socket;
     private UserInfo currentUser;
 
 
     public ClientHandler(Socket socket, DatabaseUser dbUser) {
         this.dbUser = dbUser;
+        this.dbBook = new DatabaseBooks();
         this.socket = socket;
         try {
             oos = new ObjectOutputStream(socket.getOutputStream());
@@ -106,6 +109,7 @@ public class ClientHandler {
                     }
 
                     else if (message instanceof Book) {
+
                         Book book = (Book) message;
                         book.upload(currentUser.getUserId());
                     }

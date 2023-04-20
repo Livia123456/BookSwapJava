@@ -68,7 +68,7 @@ public class DatabaseBooks {
      * Adds a book from parameters.
      */
     public void addBook(int user_id, String title, String author, String release_year, String genre, String imagePath) {
-
+        //todo ändra satt den tar emot en bok istället
         System.out.println("Vi kom hit");
 
         Connection con = db.getDatabaseConnection();
