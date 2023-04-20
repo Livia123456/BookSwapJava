@@ -62,9 +62,8 @@ public class ClientHandler {
                     } else if (message instanceof Email) {
                         checkEmail((Email) message);
                     } else if (message instanceof Book) {
-                        System.out.println("Vi kom hit");
                         Book book = (Book) message;
-                        book.upload();
+                        book.upload(currentUser.getUserId());
 
                     }
                 }

@@ -18,14 +18,14 @@ public class Book implements Serializable {
     private UserInfo uploadedBy;
 
 
-    public void upload() throws SQLException {
+    public void upload(int userId) throws SQLException {
         //DB_user dbUser = new DB_user();
         //int userId = dbUser.getUserId(uploadedBy);
 
 
         DB_books dbBooks = new DB_books();
 
-        dbBooks.addBook(uploadedBy.getUserId(), title, author, release_date, genre, null);
+        dbBooks.addBook(userId, title, author, release_date, genre, null);
 
     }
 }
