@@ -21,6 +21,12 @@ public class UserInfo implements Serializable, SearchAble{
         this.password = password;
     }
 
+    public UserInfo(int userId, String name, Email email){
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+    }
+
     public Email getEmail() {
         return email;
     }

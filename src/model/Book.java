@@ -13,6 +13,7 @@ import java.sql.SQLException;
 public class Book implements Serializable, SearchAble {
 
     private final static long serialVersionUID = 1L;
+    private int bookId;
     private String title;
     private String author;
     private String release_date;
@@ -30,6 +31,14 @@ public class Book implements Serializable, SearchAble {
 //
 //        dbBooks.addBook(userId, title, author, release_date, genre, null);
 
+    }
+
+    public int getBook_id() {
+        return bookId;
+    }
+
+    public void setBook_id(int bookId) {
+        this.bookId = bookId;
     }
 
     public String getTitle() {
@@ -115,6 +124,12 @@ public class Book implements Serializable, SearchAble {
         public BookBuilder() {
             book = new Book();
         }
+
+        public BookBuilder bookId(int bookId) {
+            book.bookId = bookId;
+            return this;
+        }
+
         public BookBuilder title(String title) {
             book.title = title;
             return this;

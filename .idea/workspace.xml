@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c04fab0-5ef9-47d8-aefb-6ba4af81e6f5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/database/search/DatabaseSearch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/SearchAble.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/SearchObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/server/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/database/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/DatabaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/search/DatabaseSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/search/DatabaseSearch.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/SearchAble.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/SearchAble.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/UserInfo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -144,16 +142,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/database/user/DatabaseUser.java</url>
-          <line>61</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

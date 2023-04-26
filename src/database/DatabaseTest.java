@@ -23,16 +23,6 @@ public class DatabaseTest {
     public static void main(String[] args) throws SQLException {
 
 
-
-        String a = "asdfg";
-        String b = "asdFG";
-        String c = "111444asd";
-        String d = "11144";
-
-        System.out.println(b.compareToIgnoreCase(a));
-
-
-
        // DatabaseTest test = new DatabaseTest();
 
        // DatabaseUser userTest = new DatabaseUser();
