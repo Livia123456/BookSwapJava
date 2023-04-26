@@ -5,6 +5,7 @@ import database.user.DatabaseUser;
 import model.Book;
 import model.Email;
 import model.UserInfo;
+import model.UserInfoUpdate;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -91,6 +92,7 @@ public class ClientHandler {
 
                     if (message instanceof UserInfo) {
                         System.out.println("Userinfo received");
+
                         if (((UserInfo) message).getName() == null || ((UserInfo) message).getName().isEmpty()) {
                             logIn((UserInfo) message);
                         } else {
@@ -112,6 +114,12 @@ public class ClientHandler {
                         dbBook.addBook((Book) message);
                         //((Book) message).upload(currentUser.getUserId());
                     }
+
+                    else if (message instanceof UserInfoUpdate) {
+                        dbUser.updateUserInfo(currentUser.getUserId(), (UserInfoUpdate) message);
+                    }
+
+
                 }
             } catch(IOException | ClassNotFoundException e){
                 throw new RuntimeException(e);
