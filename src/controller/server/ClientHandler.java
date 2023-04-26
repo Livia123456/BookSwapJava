@@ -76,7 +76,12 @@ public class ClientHandler {
 
 
     public void search(SearchObject searchObject){
-        dbSearch.search(searchObject.getSearchString());
+        try {
+            oos.writeObject(dbSearch.search(searchObject.getSearchString()));
+            oos.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

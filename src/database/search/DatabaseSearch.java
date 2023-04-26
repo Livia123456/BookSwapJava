@@ -26,7 +26,7 @@ public class DatabaseSearch {
     public ArrayList<SearchAble> search(String search) {
 
         ArrayList<SearchAble> searchAble = getBooks(search);
-        searchAble.addAll(getUsers(search));
+        //searchAble.addAll(getUsers(search));
 
         return searchAble;
     }
