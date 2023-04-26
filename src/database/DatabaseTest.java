@@ -22,13 +22,24 @@ public class DatabaseTest {
 
     public static void main(String[] args) throws SQLException {
 
-        DatabaseTest test = new DatabaseTest();
 
-        DatabaseUser userTest = new DatabaseUser();
 
-        DatabaseChat chatTest = new DatabaseChat();
+        String a = "asdfg";
+        String b = "asdFG";
+        String c = "111444asd";
+        String d = "11144";
 
-        DatabaseBooks bookTest = new DatabaseBooks();
+        System.out.println(b.compareToIgnoreCase(a));
+
+
+
+       // DatabaseTest test = new DatabaseTest();
+
+       // DatabaseUser userTest = new DatabaseUser();
+
+       // DatabaseChat chatTest = new DatabaseChat();
+
+       // DatabaseBooks bookTest = new DatabaseBooks();
 
 
         /**
@@ -41,7 +52,7 @@ public class DatabaseTest {
         /**
          * Prints the books (titles) added by a specific user.
          */
-        test.printArray(bookTest.getTitlesByUser(1));
+        //test.printArray(bookTest.getTitlesByUser(1));
 
         /**
          * Not done

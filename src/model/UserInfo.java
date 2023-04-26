@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Class to store information about a user.
  * @author Livia Tengelin, Kasper Lindberg, Sebasitan Zulj
  */
-public class UserInfo implements Serializable {
+public class UserInfo implements Serializable, SearchAble{
 
     static final long serialVersionUID = 42L;
     private Email email;

@@ -1,9 +1,11 @@
 package controller.server;
 
 import database.books.DatabaseBooks;
+import database.search.DatabaseSearch;
 import database.user.DatabaseUser;
 import model.Book;
 import model.Email;
+import model.SearchObject;
 import model.UserInfo;
 
 import java.io.IOException;
@@ -13,9 +15,11 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 public class ClientHandler {
+
     private ObjectOutputStream oos;
     private DatabaseUser dbUser;
     private DatabaseBooks dbBook;
+    private DatabaseSearch dbSearch;
     private Socket socket;
     private UserInfo currentUser;
 
@@ -23,6 +27,7 @@ public class ClientHandler {
     public ClientHandler(Socket socket, DatabaseUser dbUser) {
         this.dbUser = dbUser;
         this.dbBook = new DatabaseBooks();
+        this.dbSearch = new DatabaseSearch();
         this.socket = socket;
         try {
             oos = new ObjectOutputStream(socket.getOutputStream());
@@ -70,6 +75,12 @@ public class ClientHandler {
     }
 
 
+    public void search(SearchObject searchObject){
+        dbSearch.search(searchObject.getSearchString());
+
+    }
+
+
     private class receiverThread extends Thread {
 
         private ObjectInputStream ois;
@@ -112,6 +123,12 @@ public class ClientHandler {
                         dbBook.addBook((Book) message);
                         //((Book) message).upload(currentUser.getUserId());
                     }
+
+                    else if (message instanceof SearchObject) {
+                        search((SearchObject) message);
+
+                    }
+
                 }
             } catch(IOException | ClassNotFoundException e){
                 throw new RuntimeException(e);
