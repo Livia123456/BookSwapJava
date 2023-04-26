@@ -7,6 +7,7 @@ import model.Book;
 import model.Email;
 import model.SearchObject;
 import model.UserInfo;
+import model.UserInfoUpdate;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -107,6 +108,7 @@ public class ClientHandler {
 
                     if (message instanceof UserInfo) {
                         System.out.println("Userinfo received");
+
                         if (((UserInfo) message).getName() == null || ((UserInfo) message).getName().isEmpty()) {
                             logIn((UserInfo) message);
                         } else {
@@ -129,10 +131,18 @@ public class ClientHandler {
                         //((Book) message).upload(currentUser.getUserId());
                     }
 
+
                     else if (message instanceof SearchObject) {
                         search((SearchObject) message);
 
                     }
+
+
+                    else if (message instanceof UserInfoUpdate) {
+                        dbUser.updateUserInfo(currentUser.getUserId(), (UserInfoUpdate) message);
+                    }
+
+
 
                 }
             } catch(IOException | ClassNotFoundException e){

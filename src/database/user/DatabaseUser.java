@@ -2,6 +2,7 @@ package database.user;
 
 import database.Database;
 import model.UserInfo;
+import model.UserInfoUpdate;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -63,6 +64,26 @@ public class DatabaseUser {
             throw new RuntimeException(e);
         }
         return userInfo;
+    }
+
+    public void updateUserInfo(int currentUserId, UserInfoUpdate newUserInfo) {
+
+        String newName = newUserInfo.getName();
+        String newPassword = newUserInfo.getPassword();
+        String newEmail = newUserInfo.getEmail().getEmailAddress();
+
+        Connection con = db.getDatabaseConnection();
+        String QUERY = String.format("UPDATE users SET user_name = '%s', user_email = '%s', user_password = '%s' WHERE user_id = '%s'",
+                newName, newPassword, newEmail, currentUserId);
+
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(QUERY);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public int getUserId(UserInfo userInfo) throws SQLException {
