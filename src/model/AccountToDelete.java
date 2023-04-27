@@ -1,6 +1,10 @@
 package model;
 
-public class AccountToDelete {
+import java.io.Serializable;
+
+public class AccountToDelete implements Serializable {
+
+    static final long serialVersionUID = 52345L;
 
     private UserInfo userToDelete;
 

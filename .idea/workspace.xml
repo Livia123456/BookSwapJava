@@ -57,7 +57,7 @@
       <recent name="$PROJECT_DIR$/files" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DatabaseTest">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="DBtest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="database.DBtest" />
       <module name="BookSwapJava" />
@@ -112,8 +112,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DatabaseTest" />
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.DatabaseTest" />
         <item itemvalue="Application.DBtest" />
         <item itemvalue="Application.Main" />
       </list>
