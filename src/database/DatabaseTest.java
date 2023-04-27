@@ -3,7 +3,9 @@ package database;
 
 import database.books.DatabaseBooks;
 import database.chat.DatabaseChat;
+import database.search.DatabaseSearch;
 import database.user.DatabaseUser;
+import model.SearchAble;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,6 +24,14 @@ public class DatabaseTest {
 
     public static void main(String[] args) throws SQLException {
 
+        DatabaseSearch searchTest = new DatabaseSearch();
+
+        ArrayList<SearchAble> s = searchTest.search("bibeln");
+
+        for (int i = 0; i < s.size(); i++) {
+            System.out.println(s.get(i));
+
+        }
 
        // DatabaseTest test = new DatabaseTest();
 

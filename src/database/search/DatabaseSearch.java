@@ -74,7 +74,7 @@ public class DatabaseSearch {
                 "genre LIKE '%s' OR " +
                 "edition LIKE '%s' OR " +
                 "publisher LIKE '%s' OR " +
-                "isbn LIKE '%s'", search);
+                "isbn LIKE '%s'", search, search, search, search, search, search, search);
 
         try {
             Statement stmt = con.createStatement();
@@ -84,7 +84,7 @@ public class DatabaseSearch {
                Book book = new Book.BookBuilder().bookId(rs.getInt("book_id")).
                        title(rs.getString("title")).
                        author(rs.getString("author")).
-                       release_date(rs.getString("release_year")).
+                       release_date(String.valueOf(rs.getDate("release_year"))).
                        genre(rs.getString("genre")).
                        edition(rs.getString("edition")).
                        publisher(rs.getString("publisher")).
