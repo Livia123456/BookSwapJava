@@ -23,7 +23,7 @@ public class DatabaseUser {
         Connection con = db.getDatabaseConnection();
 
         String QUERY =  String.format("INSERT INTO users(user_name, user_email, user_password) " +
-                "VALUES ('%s', '%s', '%s')", userInfo.getName(), userInfo.getEmail(), userInfo.getPassword());
+                "VALUES ('%s', '%s', '%s')", userInfo.getName(), userInfo.getEmail().getEmailAddress(), userInfo.getPassword());
 
         try {
             Statement stmt = con.createStatement();
