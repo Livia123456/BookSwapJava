@@ -3,7 +3,6 @@ package model;
 
 import javax.swing.*;
 import java.io.Serializable;
-import java.sql.SQLException;
 
 /**
  * Class to store information about a book.
@@ -23,15 +22,9 @@ public class Book implements Serializable, SearchAble {
     private String publisher;
     private String isbn;
     private UserInfo uploadedBy;
+    private boolean isUploaded = false;
 
 
-    public void upload(int userId) throws SQLException {// todo fixa detta till DatabaseBook-klassen
-
-//        DatabaseBooks dbBooks = new DatabaseBooks();
-//
-//        dbBooks.addBook(userId, title, author, release_date, genre, null);
-
-    }
 
     public int getBook_id() {
         return bookId;
@@ -111,6 +104,14 @@ public class Book implements Serializable, SearchAble {
 
     public void setUploadedBy(UserInfo uploadedBy) {
         this.uploadedBy = uploadedBy;
+    }
+
+    public boolean isUploaded() {
+        return isUploaded;
+    }
+
+    public void setUploaded(boolean uploaded) {
+        isUploaded = uploaded;
     }
 
     /**

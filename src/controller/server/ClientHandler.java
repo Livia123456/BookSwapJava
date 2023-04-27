@@ -19,11 +19,12 @@ public class ClientHandler {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
 
-    private DatabaseBooks dbBook;
+    //private DatabaseBooks dbBook;
     private DatabaseSearch dbSearch;
     private Socket socket;
     //private UserInfo currentUser;
     private UserController userController;
+    private BookController bookController;
 
 
     public ClientHandler(Socket socket, DatabaseUser dbUser) {
@@ -35,7 +36,7 @@ public class ClientHandler {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.dbBook = new DatabaseBooks();
+        //this.dbBook = new DatabaseBooks();
         this.dbSearch = new DatabaseSearch();
         this.userController = new UserController(this);
         new receiverThread().start();
@@ -60,6 +61,18 @@ public class ClientHandler {
         return oos;
     }
 
+    public UserInfo getCurrentUser() {
+        return userController.getCurrentUser();
+    }
+    public void sendMessage(Object object) {
+        try {
+            oos.writeObject(object);
+            oos.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private class receiverThread extends Thread {
 
         @Override
@@ -82,8 +95,8 @@ public class ClientHandler {
                     }
 
                     else if (message instanceof Book) {
-                        ((Book) message).setUploadedBy(userController.getCurrentUser());
-                        dbBook.addBook((Book) message);
+                        bookController.uploadBook((Book) message);
+
                     }
 
 
