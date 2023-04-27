@@ -1,20 +1,22 @@
 package database.books;
 
+import controller.server.BookController;
 import database.Database;
 import model.Book;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DatabaseBooks {
 
     private Database db;
+    private BookController bookController;
 
-    public DatabaseBooks(){
+    public DatabaseBooks(BookController bookController){
         db = new Database();
+        this.bookController = bookController;
     }
 
 
@@ -51,9 +53,9 @@ public class DatabaseBooks {
      * Adds a book from parameters.
      */
     //public void addBook(int user_id, String title, String author, String release_year, String genre, String imagePath) {
-    public void addBook(Book book) {
-        //todo ändra satt den tar emot en bok istället
-        System.out.println("Vi kom hit");
+    public Book addBook(Book book) {
+
+        //System.out.println("Vi kom hit");
 
         Connection con = db.getDatabaseConnection();
         String QUERY = "";
@@ -78,11 +80,13 @@ public class DatabaseBooks {
             stmt.close();
             con.close();
             db.terminateIdle();
+            book.setUploaded(true);
 
         } catch (Exception e) {
              e.printStackTrace();
 
         }
+        return book;
     }
 }
 
