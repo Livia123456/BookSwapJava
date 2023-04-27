@@ -43,8 +43,8 @@ public class DatabaseSearch {
 
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("SELECT * FROM users WHERE " +
-                "user_name LIKE '%s' OR " +
-                "user_email LIKE '%s'", search);
+                "user_name ILIKE '%s' OR " +
+                "user_email ILIKE '%s'", search);
 
         try {
             Statement stmt = con.createStatement();
