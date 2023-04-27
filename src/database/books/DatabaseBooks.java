@@ -81,22 +81,24 @@ public class DatabaseBooks {
         System.out.println("Vi kom hit");
 
         Connection con = db.getDatabaseConnection();
+        String QUERY = "";
 
-        String QUERY = String.format("insert into book(book_id, user_id, title, author, release_year, genre, image_path)" +
-                "values(default, %d, '%s', '%s', '%s', '%s', '%s');",
-                book.getUploadedBy().getUserId(), book.getTitle(), book.getAuthor(), book.getRelease_date(),
-                book.getGenre(), "imagepath...");
-                //user_id, title, author, release_year, genre, imagePath);
+        if (book.getRelease_date() == null || book.getRelease_date().isEmpty() || book.getRelease_date().isBlank()) {
+            QUERY = String.format("insert into book(book_id, user_id, title, author, genre, image_path)" +
+                            "values(default, %d, '%s', '%s', '%s', '%s');",
+                    book.getUploadedBy().getUserId(), book.getTitle(), book.getAuthor(),
+                    book.getGenre(), "imagepath...");
+
+        } else {
+
+            QUERY = String.format("insert into book(book_id, user_id, title, author, release_year, genre, image_path)" +
+                            "values(default, %d, '%s', '%s', '%s', '%s', '%s');",
+                    book.getUploadedBy().getUserId(), book.getTitle(), book.getAuthor(), book.getRelease_date(),
+                    book.getGenre(), "imagepath...");
+        }
         try {
             Statement stmt = con.createStatement();
             stmt.executeUpdate(QUERY);
-
-            QUERY = "SELECT * from book";
-            stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(QUERY);
-            while (rs.next()) {
-                System.out.println(rs.getString("title"));
-            }
 
             stmt.close();
             con.close();
