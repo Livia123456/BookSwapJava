@@ -78,6 +78,7 @@ public class DatabaseBooks {
             stmt.close();
             con.close();
             db.terminateIdle();
+
         } catch (Exception e) {
              e.printStackTrace();
 
