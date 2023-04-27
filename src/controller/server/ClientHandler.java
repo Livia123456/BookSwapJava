@@ -1,6 +1,7 @@
 package controller.server;
 
 import database.books.DatabaseBooks;
+import database.chat.DatabaseChat;
 import database.search.DatabaseSearch;
 import database.user.DatabaseUser;
 import model.*;
@@ -17,6 +18,7 @@ public class ClientHandler {
     private DatabaseUser dbUser;
     private DatabaseBooks dbBook;
     private DatabaseSearch dbSearch;
+    private DatabaseChat dbChat;
     private Socket socket;
     private UserInfo currentUser;
 
@@ -25,6 +27,7 @@ public class ClientHandler {
         this.dbUser = dbUser;
         this.dbBook = new DatabaseBooks();
         this.dbSearch = new DatabaseSearch();
+        this.dbChat = new DatabaseChat();
         this.socket = socket;
         try {
             oos = new ObjectOutputStream(socket.getOutputStream());
@@ -79,6 +82,11 @@ public class ClientHandler {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public void addChatMessage(MessageObject messageObject){
+        dbChat.addMessage(messageObject);
 
     }
 
@@ -132,6 +140,10 @@ public class ClientHandler {
                         System.out.println("1");
                         search((SearchObject) message);
 
+                    }
+
+                    else if (message instanceof MessageObject) {
+                        addChatMessage((MessageObject) message);
                     }
 
 
