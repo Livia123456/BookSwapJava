@@ -22,7 +22,9 @@ public class DatabaseSearch {
     }
 
 
-
+    /**
+     * Collects book and user objects and returns them together as an Arraylist.
+     */
     public ArrayList<SearchAble> search(String search) {
 
         ArrayList<SearchAble> searchAble = getBooks(search);
@@ -32,6 +34,9 @@ public class DatabaseSearch {
     }
 
 
+    /**
+     * Fetches and returns the user objects from the database based on the search String provided by the user.
+     */
     private ArrayList<SearchAble> getUsers(String search) {
 
         ArrayList<SearchAble> users = new ArrayList<>();
@@ -63,6 +68,10 @@ public class DatabaseSearch {
         return users;
     }
 
+
+    /**
+     * Fetches and returns the book objects from the database based on the search String provided by the user.
+     */
     private ArrayList<SearchAble> getBooks(String search) {
 
         ArrayList<SearchAble> books = new ArrayList<>();
