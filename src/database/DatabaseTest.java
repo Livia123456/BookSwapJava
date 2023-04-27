@@ -26,11 +26,10 @@ public class DatabaseTest {
 
         DatabaseSearch searchTest = new DatabaseSearch();
 
-        ArrayList<SearchAble> s = searchTest.search("bibeln");
+        ArrayList<SearchAble> s = searchTest.search("jesus kristus m.fl");
 
         for (int i = 0; i < s.size(); i++) {
             System.out.println(s.get(i));
-
         }
 
        // DatabaseTest test = new DatabaseTest();

@@ -68,13 +68,13 @@ public class DatabaseSearch {
         ArrayList<SearchAble> books = new ArrayList<>();
 
         Connection con = db.getDatabaseConnection();
-        String QUERY = String.format("SELECT * FROM book WHERE title LIKE '%s' OR " +
-                "author LIKE '%s' OR " +
-                "release_year LIKE '%s' OR " +
-                "genre LIKE '%s' OR " +
-                "edition LIKE '%s' OR " +
-                "publisher LIKE '%s' OR " +
-                "isbn LIKE '%s'", search, search, search, search, search, search, search);
+        String QUERY = String.format("SELECT * FROM book WHERE title ILIKE '%s' OR " +
+                "author ILIKE '%s' OR " +
+                "release_year :: text ILIKE '%s' OR " +
+                "genre ILIKE '%s' OR " +
+                "edition ILIKE '%s' OR " +
+                "publisher ILIKE '%s' OR " +
+                "isbn ILIKE '%s'", search, search, search, search, search, search, search);
 
         try {
             Statement stmt = con.createStatement();
