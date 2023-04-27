@@ -3,11 +3,7 @@ package controller.server;
 import database.books.DatabaseBooks;
 import database.search.DatabaseSearch;
 import database.user.DatabaseUser;
-import model.Book;
-import model.Email;
-import model.SearchObject;
-import model.UserInfo;
-import model.UserInfoUpdate;
+import model.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -140,6 +136,12 @@ public class ClientHandler {
 
                     else if (message instanceof UserInfoUpdate) {
                         dbUser.updateUserInfo(currentUser.getUserId(), (UserInfoUpdate) message);
+                    }
+
+                    else if (message instanceof AccountToDelete) {
+                        int userToDelete = ((AccountToDelete) message).getUserToDelete().getUserId();
+
+                        dbUser.removeUserFromDatabase(userToDelete);
                     }
 
 

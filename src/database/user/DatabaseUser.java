@@ -1,6 +1,7 @@
 package database.user;
 
 import database.Database;
+import model.AccountToDelete;
 import model.UserInfo;
 import model.UserInfoUpdate;
 
@@ -79,11 +80,31 @@ public class DatabaseUser {
         try {
             Statement stmt = con.createStatement();
             stmt.executeUpdate(QUERY);
+
+            stmt.close();
+            con.close();
+            db.terminateIdle();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
 
+    public void removeUserFromDatabase(int userId) {
+
+        Connection con = db.getDatabaseConnection();
+        String QUERY = String.format("DELETE FROM users WHERE user_id = '%s'", userId);
+
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(QUERY);
+
+            stmt.close();
+            con.close();
+            db.terminateIdle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public int getUserId(UserInfo userInfo) throws SQLException {
