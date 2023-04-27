@@ -17,31 +17,6 @@ public class DatabaseBooks {
         db = new Database();
     }
 
-    public ArrayList<String> getBook(int book_id) { //todo: ej klar
-
-        ArrayList<String> book = new ArrayList<>();
-
-        Connection con = db.getDatabaseConnection();
-        String QUERY = String.format("select * from book where book_id = %d", book_id);
-
-        try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(QUERY);
-
-            while (rs.next()) {
-
-            }
-
-            stmt.close();
-            con.close();
-            db.terminateIdle();
-
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-        return book;
-    }
-
 
     /**
      * Returns title of a book from user_id.
