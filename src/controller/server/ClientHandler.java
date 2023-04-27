@@ -133,6 +133,7 @@ public class ClientHandler {
 
 
                     else if (message instanceof SearchObject) {
+                        System.out.println("1");
                         search((SearchObject) message);
 
                     }

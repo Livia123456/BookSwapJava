@@ -29,6 +29,9 @@ public class DatabaseSearch {
 
         ArrayList<SearchAble> searchAble = getBooks(search);
         //searchAble.addAll(getUsers(search));
+        for(SearchAble book: searchAble) {
+            System.out.println(book);
+        }
 
         return searchAble;
     }
