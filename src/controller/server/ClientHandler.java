@@ -41,6 +41,7 @@ public class ClientHandler {
         //this.dbBook = new DatabaseBooks();
         this.dbSearch = new DatabaseSearch();
         this.userController = new UserController(this);
+        this.bookController = new BookController(this);
         new receiverThread().start();
     }
 
