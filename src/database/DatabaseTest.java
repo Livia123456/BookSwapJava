@@ -25,11 +25,18 @@ public class DatabaseTest {
 
     public static void main(String[] args) throws SQLException {
 
-
-
         DatabaseChat chatTest = new DatabaseChat();
-        chatTest.addMessage(new MessageObject(3, 1,
-                "Hey there, is your Bilbo book still available?"));
+
+        /* chatTest.addMessage(new MessageObject(3, 1,
+                "Hey there, is your Bilbo book still available?")); */
+
+
+        ArrayList<MessageObject> chatHistory = chatTest.getChatHistory(1);
+
+        for (int i = 0; i <chatHistory.size(); i++) {
+            System.out.println(chatHistory.get(i));
+        }
+
 
 
         /* DatabaseSearch searchTest = new DatabaseSearch();

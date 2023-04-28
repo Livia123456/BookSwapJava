@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 
 public class DatabaseChat {
@@ -107,5 +108,38 @@ public class DatabaseChat {
         }
 
         return chatId;
+    }
+
+    public ArrayList<MessageObject> getChatHistory(int chat_id) {
+
+        //TODO: göra om?
+
+        ArrayList<MessageObject> chatHistory = new ArrayList<>();
+
+
+
+        Connection con = db.getDatabaseConnection();
+        String QUERY = String.format("SELECT message FROM messages WHERE " +
+                        "chat_id = %d", chat_id);
+
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY);
+
+            while (rs.next()) {
+             //  chatId = rs.getInt("chat_id");
+            }
+
+            stmt.close();
+            con.close();
+            db.terminateIdle();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+        return chatHistory;
     }
 }
