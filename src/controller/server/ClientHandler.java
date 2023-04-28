@@ -4,11 +4,7 @@ import database.books.DatabaseBooks;
 import database.chat.DatabaseChat;
 import database.search.DatabaseSearch;
 import database.user.DatabaseUser;
-import model.Book;
-import model.Email;
-import model.SearchObject;
-import model.UserInfo;
-import model.UserInfoUpdate;
+import model.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -31,8 +27,8 @@ public class ClientHandler {
 
     public ClientHandler(Socket socket, DatabaseUser dbUser) {
 
-        this.dbUser = dbUser;
-        this.dbBook = new DatabaseBooks();
+        //this.dbUser = dbUser;
+        //this.dbBook = new DatabaseBooks();
         this.dbSearch = new DatabaseSearch();
         this.dbChat = new DatabaseChat();
         this.socket = socket;
