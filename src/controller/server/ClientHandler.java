@@ -86,6 +86,7 @@ public class ClientHandler {
 
 
     public void addChatMessage(MessageObject messageObject){
+
         dbChat.addMessage(messageObject);
 
     }
