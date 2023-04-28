@@ -5,6 +5,7 @@ import database.books.DatabaseBooks;
 import database.chat.DatabaseChat;
 import database.search.DatabaseSearch;
 import database.user.DatabaseUser;
+import model.MessageObject;
 import model.SearchAble;
 
 import java.sql.SQLException;
@@ -24,13 +25,20 @@ public class DatabaseTest {
 
     public static void main(String[] args) throws SQLException {
 
-        DatabaseSearch searchTest = new DatabaseSearch();
+
+
+        DatabaseChat chatTest = new DatabaseChat();
+        chatTest.addMessage(new MessageObject(3, 1,
+                "Hey there, is your Bilbo book still available?"));
+
+
+        /* DatabaseSearch searchTest = new DatabaseSearch();
 
         ArrayList<SearchAble> s = searchTest.search("jesus kristus m.fl");
 
         for (int i = 0; i < s.size(); i++) {
             System.out.println(s.get(i));
-        }
+        } */
 
        // DatabaseTest test = new DatabaseTest();
 
