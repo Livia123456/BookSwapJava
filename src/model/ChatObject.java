@@ -1,7 +1,10 @@
 package model;
 
-public class ChatObject {
+import java.io.Serializable;
 
+public class ChatObject implements Serializable {
+
+    private final static long serialVersionUID = 7L;
     private int user1;
     private int user2;
     private ChatStatus status;
