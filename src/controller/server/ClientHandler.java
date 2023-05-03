@@ -126,6 +126,10 @@ public class ClientHandler {
                         userController.updateUserInfo((UserInfoUpdate) message);
                     }
 
+                    else if (message instanceof ChatObject) {
+                        ChatController.
+                    }
+
                 }
             } catch(IOException | ClassNotFoundException e){
                 throw new RuntimeException(e);
