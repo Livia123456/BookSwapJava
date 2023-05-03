@@ -10,7 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
+/**
+ * Handles the queries associated with all the chat functions of the system.
+ * @author Kasper Lindberg
+ */
 public class DatabaseChat {
 
     private Database db;
@@ -20,9 +23,11 @@ public class DatabaseChat {
     }
 
 
-
+    /**
+     * Adds a message to a specific chat, and if the chat doesn't exist yet, it calls the method addChat()
+     * to first create a new chat.
+     */
     public void addMessage(MessageObject messageObject) {
-
 
         int chatId = getChatId(messageObject);
 
@@ -51,9 +56,11 @@ public class DatabaseChat {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
+    /**
+     * Adds a new chat.
+     */
     private int addChat(MessageObject messageObject) {
 
         int chatId = 0;
@@ -79,6 +86,10 @@ public class DatabaseChat {
         return chatId;
     }
 
+
+    /**
+     * Fetches and returns a chatId from a message object.
+     */
     public int getChatId(MessageObject messageObject){
 
         int chatId = 0;
@@ -111,10 +122,10 @@ public class DatabaseChat {
     }
 
 
-
+    /**
+     * Fetches and returns the ten latest messages in a specific chat as an ArrayList.
+     */
     public ArrayList<MessageObject> getChatHistory(int chat_id) {
-
-        //TODO: koppla till metod ovan (param: user1, user2) + om någon skriver
 
         ArrayList<MessageObject> chatHistory = new ArrayList<>();
 

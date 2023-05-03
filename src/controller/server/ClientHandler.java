@@ -23,6 +23,7 @@ public class ClientHandler {
     //private UserInfo currentUser;
     private UserController userController;
     private BookController bookController;
+    private ChatController chatController;
 
 
     public ClientHandler(Socket socket, DatabaseUser dbUser) {
@@ -42,6 +43,7 @@ public class ClientHandler {
         this.dbSearch = new DatabaseSearch();
         this.userController = new UserController(this);
         this.bookController = new BookController(this);
+        this.chatController = new ChatController(this);
         new receiverThread().start();
     }
 
@@ -56,11 +58,15 @@ public class ClientHandler {
     }
 
 
-    public void addChatMessage(MessageObject messageObject){
-
-        dbChat.addMessage(messageObject);
-
+    public void sendMessage(Object object) {
+        try {
+            oos.writeObject(object);
+            oos.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
 
     public ObjectInputStream getOIS() {
         return ois;
@@ -73,14 +79,7 @@ public class ClientHandler {
     public UserInfo getCurrentUser() {
         return userController.getCurrentUser();
     }
-    public void sendMessage(Object object) {
-        try {
-            oos.writeObject(object);
-            oos.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
     private class receiverThread extends Thread {
 
@@ -118,7 +117,7 @@ public class ClientHandler {
                     }
 
                     else if (message instanceof MessageObject) {
-                        addChatMessage((MessageObject) message);
+                        chatController.addChatMessage((MessageObject) message);
                     }
 
 
@@ -127,7 +126,7 @@ public class ClientHandler {
                     }
 
                     else if (message instanceof ChatObject) {
-                        ChatController.
+                        chatController.checkObject((ChatObject) message);
                     }
 
                 }
