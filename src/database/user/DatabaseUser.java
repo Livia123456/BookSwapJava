@@ -93,7 +93,7 @@ public class DatabaseUser {
     public void removeUserFromDatabase(int userId) {
 
         Connection con = db.getDatabaseConnection();
-        String QUERY = String.format("DELETE FROM users WHERE user_id = '%s'", userId);
+        String QUERY = String.format("DELETE FROM users WHERE user_id = %d", userId);
 
         try {
             Statement stmt = con.createStatement();
