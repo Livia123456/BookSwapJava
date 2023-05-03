@@ -24,13 +24,11 @@ public class ClientHandler {
     private UserController userController;
     private BookController bookController;
     private ChatController chatController;
+    private SearchController searchController;
 
 
     public ClientHandler(Socket socket, DatabaseUser dbUser) {
 
-        //this.dbUser = dbUser;
-        //this.dbBook = new DatabaseBooks();
-        this.dbSearch = new DatabaseSearch();
         this.dbChat = new DatabaseChat();
         this.socket = socket;
         try {
@@ -39,32 +37,18 @@ public class ClientHandler {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //this.dbBook = new DatabaseBooks();
+
         this.dbSearch = new DatabaseSearch();
         this.userController = new UserController(this);
         this.bookController = new BookController(this);
-        this.chatController = new ChatController(this);
+        this.searchController = new SearchController(this);
         new receiverThread().start();
     }
 
+    public void addChatMessage(MessageObject messageObject){
 
-    public void search(SearchObject searchObject){
-        try {
-            oos.writeObject(dbSearch.search(searchObject.getSearchString()));
-            oos.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+        dbChat.addMessage(messageObject);
 
-
-    public void sendMessage(Object object) {
-        try {
-            oos.writeObject(object);
-            oos.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 
@@ -90,7 +74,6 @@ public class ClientHandler {
                 while ((message = ois.readObject()) != null) {
 
                     if (message instanceof UserInfo) {
-                        System.out.println("Userinfo received");
                         userController.userInfoReceived((UserInfo) message);
                     }
 
@@ -112,21 +95,22 @@ public class ClientHandler {
                     }
 
                     else if (message instanceof SearchObject) {
-                        search((SearchObject) message);
-
+                        searchController.search((SearchObject) message);
                     }
 
                     else if (message instanceof MessageObject) {
                         chatController.addChatMessage((MessageObject) message);
                     }
 
-
                     else if (message instanceof UserInfoUpdate) {
                         userController.updateUserInfo((UserInfoUpdate) message);
                     }
 
                     else if (message instanceof ChatObject) {
-                        chatController.checkObject((ChatObject) message);
+                        chatController.checkObject((ChatObject) message); 
+                    }
+                    else if (message instanceof AdvancedSearchObject) {
+                        searchController.advancedSearch((AdvancedSearchObject) message);
                     }
 
                 }
