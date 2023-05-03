@@ -50,6 +50,33 @@ public class DatabaseBooks {
     }
 
     /**
+     * Gets a list of books uploaded by current user
+     */
+    public ArrayList<Book> getBooksUploadedByUser(int userId) {
+        ArrayList<Book> uploadedBooks = new ArrayList<>();
+        Book.BookBuilder bookBuilder = new Book.BookBuilder();
+
+        try {
+            Connection con = db.getDatabaseConnection();
+            String QUERY = String.format("SELECT * FROM book where user_id = %d", userId);
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY);
+
+            while (rs.next()) {
+                Book book = bookBuilder.title(rs.getString("title")).author(rs.getString("author")).
+                        genre(rs.getString("genre")).release_date(rs.getString("release_year")).
+                        edition(rs.getString("edition")).publisher(rs.getString("publisher")).
+                        isbn(rs.getString("isbn")).build();
+                uploadedBooks.add(book);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return uploadedBooks;
+    }
+
+    /**
      * Adds a book from parameters.
      */
     //public void addBook(int user_id, String title, String author, String release_year, String genre, String imagePath) {

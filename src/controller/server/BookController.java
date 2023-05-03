@@ -5,6 +5,7 @@ import model.Book;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class BookController {
 
@@ -22,6 +23,11 @@ public class BookController {
     public void uploadBook(Book book) {
         (book).setUploadedBy(clientHandler.getCurrentUser());
         clientHandler.sendMessage(dbBook.addBook(book));
+    }
+
+    public ArrayList<Book> loadCurrentUsersUploadedBooks() {
+        System.out.println(clientHandler.getCurrentUser().getUserId());
+        return dbBook.getBooksUploadedByUser(clientHandler.getCurrentUser().getUserId());
     }
 
 }

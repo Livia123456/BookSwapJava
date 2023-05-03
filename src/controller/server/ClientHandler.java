@@ -82,6 +82,10 @@ public class ClientHandler {
         }
     }
 
+    public BookController getBookController() {
+        return bookController;
+    }
+
     private class receiverThread extends Thread {
 
         @Override
@@ -91,7 +95,6 @@ public class ClientHandler {
                 while ((message = ois.readObject()) != null) {
 
                     if (message instanceof UserInfo) {
-                        System.out.println("Userinfo received");
                         userController.userInfoReceived((UserInfo) message);
                     }
 

@@ -22,10 +22,27 @@ public class UserController {
     }
 
     private void logIn(UserInfo userInfo) {
+        /*
+        userInfo = dbUser.checkUserInfo(userInfo);
+        try {
+            if (userInfo.isCorrectInfo()) {
+
+                userInfo.setCurrentUsersUploadedBooks(clientHandler.getBookController().loadCurrentUsersUploadedBooks());
+                currentUser = userInfo;
+                oos.writeObject(userInfo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+         */
+
 
         try {
             oos.writeObject(dbUser.checkUserInfo(userInfo));
             oos.flush();
+            currentUser = userInfo;
+            userInfo.setCurrentUsersUploadedBooks(clientHandler.getBookController().loadCurrentUsersUploadedBooks());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -62,7 +79,6 @@ public class UserController {
         } else {
             createNewUser(userInfo);
         }
-        currentUser = userInfo;
     }
 
     public void updateUserInfo(UserInfoUpdate userInfo) {
@@ -78,4 +94,6 @@ public class UserController {
     public UserInfo getCurrentUser() {
         return currentUser;
     }
+
+
 }
