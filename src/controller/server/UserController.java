@@ -1,6 +1,7 @@
 package controller.server;
 
 import database.user.DatabaseUser;
+import model.AccountToDelete;
 import model.Email;
 import model.UserInfo;
 import model.UserInfoUpdate;
@@ -66,6 +67,12 @@ public class UserController {
 
     public void updateUserInfo(UserInfoUpdate userInfo) {
         dbUser.updateUserInfo(currentUser.getUserId(), userInfo);
+    }
+
+
+    public void deleteAccount(AccountToDelete accountToDelete) {
+        int userId = accountToDelete.getUserToDelete().getUserId();
+        dbUser.removeUserFromDatabase(userId);
     }
 
     public UserInfo getCurrentUser() {

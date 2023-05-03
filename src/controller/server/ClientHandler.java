@@ -108,6 +108,9 @@ public class ClientHandler {
 
                     }
 
+                    else if (message instanceof AccountToDelete) {
+                        userController.deleteAccount((AccountToDelete) message);
+                    }
 
                     else if (message instanceof SearchObject) {
                         search((SearchObject) message);
