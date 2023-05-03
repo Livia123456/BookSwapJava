@@ -120,9 +120,9 @@ public class DatabaseSearch {
     public ArrayList<Book> advancedSearch(AdvancedSearchObject a) {
         String query = "SELECT * FROM book WHERE ";
         if(a.getTitle() != null && !a.getTitle().isEmpty()) {
-            query += String.format("title ILIKE '%s' AND ", a.getTitle());
+            query += String.format("title ILIKE '%%%s%%' AND ", a.getTitle());
         } if(a.getAuthor() != null && !a.getAuthor().isEmpty()) {
-            query += String.format("author ILIKE '%s' AND ", a.getAuthor());
+            query += String.format("author ILIKE '%%%s%%' AND ", a.getAuthor());
         } if(a.getYear() != null && !a.getYear().isEmpty()) {
             query += String.format("release_year :: text ILIKE '%s' AND ", a.getYear());
         } if(a.getGenre() != null && !a.getGenre().isEmpty()) {
@@ -134,16 +134,15 @@ public class DatabaseSearch {
         }  if(a.getIsbn() != null && !a.getIsbn().isEmpty()) {
             query += String.format("isbn ILIKE '%s' AND ", a.getIsbn());
         }
-        String QUERY = query.substring(0,query.lastIndexOf(" A"));
+        query = query.substring(0,query.lastIndexOf(" A"));
         ArrayList<Book> books = new ArrayList<>();
 
         Connection con = db.getDatabaseConnection();
 
-        System.out.println(QUERY);
 
         try {
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(QUERY);
+            ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
                 Book book = new Book.BookBuilder().bookId(rs.getInt("book_id")).

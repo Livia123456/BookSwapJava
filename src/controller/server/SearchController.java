@@ -2,6 +2,7 @@ package controller.server;
 
 import database.search.DatabaseSearch;
 import model.AdvancedSearchObject;
+import model.AdvancedSearchResult;
 import model.SearchObject;
 
 
@@ -19,6 +20,6 @@ public class SearchController {
     }
 
     public void advancedSearch(AdvancedSearchObject advancedSearchObject) {
-        clientHandler.sendMessage(dbSearch.advancedSearch(advancedSearchObject));
+        clientHandler.sendMessage(new AdvancedSearchResult(dbSearch.advancedSearch(advancedSearchObject)));
     }
 }
