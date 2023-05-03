@@ -69,6 +69,15 @@ public class ClientHandler {
         return bookController;
     }
 
+    public void sendMessage(Object object) {
+        try {
+            oos.writeObject(object);
+            oos.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private class receiverThread extends Thread {
 
         @Override

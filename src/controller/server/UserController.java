@@ -22,27 +22,23 @@ public class UserController {
     }
 
     private void logIn(UserInfo userInfo) {
-        /*
+
         userInfo = dbUser.checkUserInfo(userInfo);
         try {
             if (userInfo.isCorrectInfo()) {
 
-                userInfo.setCurrentUsersUploadedBooks(clientHandler.getBookController().loadCurrentUsersUploadedBooks());
                 currentUser = userInfo;
+                userInfo.setCurrentUsersUploadedBooks(clientHandler.getBookController().loadCurrentUsersUploadedBooks());
                 oos.writeObject(userInfo);
+                oos.flush();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-         */
-
-
         try {
             oos.writeObject(dbUser.checkUserInfo(userInfo));
             oos.flush();
-            currentUser = userInfo;
-            userInfo.setCurrentUsersUploadedBooks(clientHandler.getBookController().loadCurrentUsersUploadedBooks());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
