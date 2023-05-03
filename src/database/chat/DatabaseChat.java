@@ -10,7 +10,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
+/**
+ * Handles the queries associated with all the chat functions of the system.
+ * @author Kasper Lindberg
+ */
 public class DatabaseChat {
 
     private Database db;
@@ -20,9 +23,11 @@ public class DatabaseChat {
     }
 
 
-
+    /**
+     * Adds a message to a specific chat, and if the chat doesn't exist yet, it calls the method addChat()
+     * to first create a new chat.
+     */
     public void addMessage(MessageObject messageObject) {
-
 
         int chatId = getChatId(messageObject);
 
@@ -51,9 +56,11 @@ public class DatabaseChat {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
+    /**
+     * Adds a new chat.
+     */
     private int addChat(MessageObject messageObject) {
 
         int chatId = 0;
@@ -79,6 +86,10 @@ public class DatabaseChat {
         return chatId;
     }
 
+
+    /**
+     * Fetches and returns a chatId from a message object.
+     */
     public int getChatId(MessageObject messageObject){
 
         int chatId = 0;
@@ -110,24 +121,37 @@ public class DatabaseChat {
         return chatId;
     }
 
-    public ArrayList<MessageObject> getChatHistory(int chat_id) {
 
-        //TODO: göra om?
+    /**
+     * Fetches and returns the ten latest messages in a specific chat as an ArrayList.
+     */
+    public ArrayList<MessageObject> getChatHistory(int chat_id) {
 
         ArrayList<MessageObject> chatHistory = new ArrayList<>();
 
-
-
         Connection con = db.getDatabaseConnection();
-        String QUERY = String.format("SELECT message FROM messages WHERE " +
-                        "chat_id = %d", chat_id);
+        String QUERY = String.format("SELECT m.message, m.sender, m.message_date, c.user_1_id, c.user_2_id " +
+                "FROM messages m " +
+                "JOIN chat c ON m.chat_id = c.chat_id " +
+                "WHERE m.chat_id = %d " +
+                "ORDER BY m.message_date DESC " +
+                "LIMIT 10", chat_id);
 
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(QUERY);
 
             while (rs.next()) {
-             //  chatId = rs.getInt("chat_id");
+                int sender = rs.getInt("sender");
+                int user1 = rs.getInt("user_1_id");
+                int user2 = rs.getInt("user_2_id");
+
+
+                if(sender == user1){
+                    chatHistory.add(new MessageObject(sender, user2, rs.getString("message")));
+                } else{
+                    chatHistory.add(new MessageObject(sender, user1, rs.getString("message")));
+                }
             }
 
             stmt.close();
@@ -137,8 +161,6 @@ public class DatabaseChat {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
 
         return chatHistory;
     }

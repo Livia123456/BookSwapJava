@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Queue;
 
 /**
  * Handles the database query's associated with the search function.
@@ -116,4 +117,53 @@ public class DatabaseSearch {
     }
 
 
+    public ArrayList<Book> advancedSearch(AdvancedSearchObject a) {
+        String query = "SELECT * FROM book WHERE ";
+        if(a.getTitle() != null && !a.getTitle().isEmpty()) {
+            query += String.format("title ILIKE '%%%s%%' AND ", a.getTitle());
+        } if(a.getAuthor() != null && !a.getAuthor().isEmpty()) {
+            query += String.format("author ILIKE '%%%s%%' AND ", a.getAuthor());
+        } if(a.getYear() != null && !a.getYear().isEmpty()) {
+            query += String.format("release_year :: text ILIKE '%s' AND ", a.getYear());
+        } if(a.getGenre() != null && !a.getGenre().isEmpty()) {
+            query += String.format("genre ILIKE '%s' AND ", a.getGenre());
+        }  if(a.getEdition() != null && !a.getEdition().isEmpty()) {
+            query += String.format("edition ILIKE '%s' AND ", a.getEdition());
+        }  if(a.getPublisher() != null && !a.getPublisher().isEmpty()) {
+            query += String.format("publisher ILIKE '%s' AND ", a.getPublisher());
+        }  if(a.getIsbn() != null && !a.getIsbn().isEmpty()) {
+            query += String.format("isbn ILIKE '%s' AND ", a.getIsbn());
+        }
+        query = query.substring(0,query.lastIndexOf(" A"));
+        ArrayList<Book> books = new ArrayList<>();
+
+        Connection con = db.getDatabaseConnection();
+
+
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                Book book = new Book.BookBuilder().bookId(rs.getInt("book_id")).
+                        title(rs.getString("title")).
+                        author(rs.getString("author")).
+                        release_date(String.valueOf(rs.getDate("release_year"))).
+                        genre(rs.getString("genre")).
+                        edition(rs.getString("edition")).
+                        publisher(rs.getString("publisher")).
+                        isbn(rs.getString("isbn")).build();
+
+                books.add(book);
+            }
+
+            stmt.close();
+            con.close();
+            db.terminateIdle();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return books;
+    }
 }
