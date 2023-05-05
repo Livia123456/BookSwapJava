@@ -54,8 +54,6 @@ public class DatabaseBooks {
      */
     public ArrayList<Book> getBooksUploadedByUser(int userId) {
         ArrayList<Book> uploadedBooks = new ArrayList<>();
-        Book.BookBuilder bookBuilder = new Book.BookBuilder();
-
         try {
             Connection con = db.getDatabaseConnection();
             String QUERY = String.format("SELECT * FROM book where user_id = %d", userId);
@@ -63,7 +61,7 @@ public class DatabaseBooks {
             ResultSet rs = stmt.executeQuery(QUERY);
 
             while (rs.next()) {
-                Book book = bookBuilder.title(rs.getString("title")).author(rs.getString("author")).
+                Book book = new Book.BookBuilder().title(rs.getString("title")).author(rs.getString("author")).
                         genre(rs.getString("genre")).release_date(rs.getString("release_year")).
                         edition(rs.getString("edition")).publisher(rs.getString("publisher")).
                         isbn(rs.getString("isbn")).build();
@@ -73,6 +71,7 @@ public class DatabaseBooks {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return uploadedBooks;
     }
 

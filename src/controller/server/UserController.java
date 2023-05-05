@@ -26,9 +26,8 @@ public class UserController {
         userInfo = dbUser.checkUserInfo(userInfo);
         try {
             if (userInfo.isCorrectInfo()) {
-
                 currentUser = userInfo;
-                userInfo.setCurrentUsersUploadedBooks(clientHandler.getBookController().loadCurrentUsersUploadedBooks());
+                currentUser.setCurrentUsersUploadedBooks(clientHandler.getBookController().loadCurrentUsersUploadedBooks());
                 oos.writeObject(userInfo);
                 oos.flush();
             }
