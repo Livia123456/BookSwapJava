@@ -142,7 +142,6 @@ public class DatabaseChat {
                 int user1 = rs.getInt("user_1_id");
                 int user2 = rs.getInt("user_2_id");
 
-
                 if(sender == user1){
                     chatHistory.add(new MessageObject(sender, user2, rs.getString("message")));
                 } else{
@@ -164,18 +163,12 @@ public class DatabaseChat {
 
     public void deleteChat(ChatObject chatObject){
 
-        /*
-        2. delete messages
-        3. delete chat
-         */
-
         int chatId = getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
 
         Connection con = db.getDatabaseConnection();
-        String QUERY = String.format("de");
+        String QUERY = String.format("DELETE FROM messages WHERE chat_id = %d", chatId);
 
         try {
-
             Statement stmt = con.createStatement();
             stmt.executeUpdate(QUERY);
 
