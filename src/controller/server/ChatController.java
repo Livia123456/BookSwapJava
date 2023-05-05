@@ -18,23 +18,35 @@ public class ChatController {
     }
 
 
-
     public void addChatMessage(MessageObject messageObject){
 
         dbChat.addMessage(messageObject);
-
     }
 
 
     public void checkObject(ChatObject chatObject) {
         int chatId;
 
-        if (chatObject.getStatus().equals(ChatStatus.open)) {
+        switch(chatObject.getStatus()) {
+            case newChat:
+                dbChat.addChat(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
+                break;
 
-            chatId = dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
+            case open:
+                chatId = dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
+                clientHandler.sendMessage(dbChat.getChatHistory(chatId));
+                break;
 
-            clientHandler.sendMessage(dbChat.getChatHistory(chatId));
+            case delete:
+                dbChat.deleteChat(chatObject);
+                break;
+
         }
+
+       /* if (chatObject.getStatus().equals(ChatStatus.open)) {
+            chatId = dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
+            clientHandler.sendMessage(dbChat.getChatHistory(chatId));
+        } */
 
     }
 
