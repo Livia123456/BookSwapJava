@@ -113,18 +113,21 @@ public class ClientHandler {
 
                     else if (message instanceof MessageObject) {
                         chatController.addChatMessage((MessageObject) message);
+
+                    }
+
+                    else if (message instanceof ChatObject) {
+                        chatController.checkObject((ChatObject) message);
                     }
 
                     else if (message instanceof UserInfoUpdate) {
                         userController.updateUserInfo((UserInfoUpdate) message);
                     }
 
-                    else if (message instanceof ChatObject) {
-                        chatController.checkObject((ChatObject) message); 
-                    }
                     else if (message instanceof AdvancedSearchObject) {
                         searchController.advancedSearch((AdvancedSearchObject) message);
                     }
+
 
                 }
             } catch(IOException | ClassNotFoundException e){
