@@ -2,7 +2,7 @@ package model;
 
 public enum ChatStatus {
 
+    newChat,
     open,
-    close,
     delete
 }

@@ -118,6 +118,11 @@ public class ClientHandler {
 
                     else if (message instanceof MessageObject) {
                         chatController.addChatMessage((MessageObject) message);
+
+                    }
+
+                    else if (message instanceof ChatObject) {
+                        chatController.checkObject((ChatObject) message);
                     }
 
 
@@ -125,9 +130,6 @@ public class ClientHandler {
                         userController.updateUserInfo((UserInfoUpdate) message);
                     }
 
-                    else if (message instanceof ChatObject) {
-                        chatController.checkObject((ChatObject) message);
-                    }
 
                 }
             } catch(IOException | ClassNotFoundException e){

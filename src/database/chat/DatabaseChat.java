@@ -1,6 +1,7 @@
 package database.chat;
 
 import database.Database;
+import model.ChatObject;
 import model.MessageObject;
 
 
@@ -31,10 +32,6 @@ public class DatabaseChat {
 
         int chatId = getChatId(messageObject);
 
-        if(chatId == 0){
-            chatId = addChat(messageObject);
-        }
-
         String message = messageObject.getMessage();
         message = message.replaceAll("'", "''"); // Escape apostrophes
 
@@ -61,7 +58,7 @@ public class DatabaseChat {
     /**
      * Adds a new chat.
      */
-    private int addChat(MessageObject messageObject) {
+    public void addChat(MessageObject messageObject) {
 
         int chatId = 0;
 
@@ -83,7 +80,6 @@ public class DatabaseChat {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return chatId;
     }
 
 
@@ -164,4 +160,27 @@ public class DatabaseChat {
 
         return chatHistory;
     }
+
+
+    public void deleteChat(ChatObject chatObject){
+
+        //todo: delte messages & chat
+        Connection con = db.getDatabaseConnection();
+        String QUERY = String.format(" Yadda yadda");
+
+        try {
+
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(QUERY);
+
+            stmt.close();
+            con.close();
+            db.terminateIdle();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
