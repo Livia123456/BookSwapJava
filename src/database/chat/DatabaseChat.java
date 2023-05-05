@@ -164,9 +164,15 @@ public class DatabaseChat {
 
     public void deleteChat(ChatObject chatObject){
 
-        //todo: delte messages & chat
+        /*
+        2. delete messages
+        3. delete chat
+         */
+
+        int chatId = getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
+
         Connection con = db.getDatabaseConnection();
-        String QUERY = String.format(" Yadda yadda");
+        String QUERY = String.format("de");
 
         try {
 
