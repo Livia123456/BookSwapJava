@@ -26,7 +26,6 @@ public class BookController {
     }
 
     public ArrayList<Book> loadCurrentUsersUploadedBooks() {
-        System.out.println(clientHandler.getCurrentUser().getUserId());
         return dbBook.getBooksUploadedByUser(clientHandler.getCurrentUser().getUserId());
     }
 
