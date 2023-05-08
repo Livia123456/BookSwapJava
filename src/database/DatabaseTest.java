@@ -1,10 +1,13 @@
 package database;
 
 
+import controller.server.ChatController;
 import database.books.DatabaseBooks;
 import database.chat.DatabaseChat;
 import database.search.DatabaseSearch;
 import database.user.DatabaseUser;
+import model.ChatObject;
+import model.ChatStatus;
 import model.MessageObject;
 import model.SearchAble;
 
@@ -30,12 +33,15 @@ public class DatabaseTest {
         /* chatTest.addMessage(new MessageObject(3, 1,
                 "Hey there, is your Bilbo book still available?")); */
 
+        chatTest.deleteChat(new ChatObject(1,3,ChatStatus.delete));
 
-        ArrayList<MessageObject> chatHistory = chatTest.getChatHistory(1);
+
+
+       /* ArrayList<MessageObject> chatHistory = chatTest.getChatHistory(1);
 
         for (int i = 0; i <chatHistory.size(); i++) {
             System.out.println(chatHistory.get(i));
-        }
+        } */
 
 
 
