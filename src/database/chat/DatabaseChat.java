@@ -25,8 +25,7 @@ public class DatabaseChat {
 
 
     /**
-     * Adds a message to a specific chat, and if the chat doesn't exist yet, it calls the method addChat()
-     * to first create a new chat.
+     * Adds a message to a specific chat.
      */
     public void addMessage(MessageObject messageObject) {
 
