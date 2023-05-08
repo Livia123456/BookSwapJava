@@ -1,15 +1,11 @@
 package database;
 
 
-import controller.server.ChatController;
-import database.books.DatabaseBooks;
 import database.chat.DatabaseChat;
-import database.search.DatabaseSearch;
-import database.user.DatabaseUser;
-import model.ChatObject;
-import model.ChatStatus;
-import model.MessageObject;
-import model.SearchAble;
+import model.chat.ChatObject;
+import model.chat.ChatStatus;
+import model.chat.ChatsWith;
+import model.chat.MessageObject;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +30,6 @@ public class DatabaseTest {
                 "Hey there, is your Bilbo book still available?")); */
 
        // chatTest.deleteChat(new ChatObject(1,3,ChatStatus.delete));
-
 
 
 
