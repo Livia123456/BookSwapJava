@@ -4,6 +4,7 @@ import database.search.DatabaseSearch;
 import model.AdvancedSearchObject;
 import model.AdvancedSearchResult;
 import model.SearchObject;
+import model.SearchResult;
 
 
 public class SearchController {
@@ -16,7 +17,7 @@ public class SearchController {
     }
 
     public void search(SearchObject searchObject){
-        clientHandler.sendMessage(dbSearch.search(searchObject.getSearchString()));
+        clientHandler.sendMessage(new SearchResult(dbSearch.search(searchObject.getSearchString())));
     }
 
     public void advancedSearch(AdvancedSearchObject advancedSearchObject) {

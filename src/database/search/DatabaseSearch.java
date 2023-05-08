@@ -26,9 +26,9 @@ public class DatabaseSearch {
     /**
      * Collects book and user objects and returns them together as an Arraylist.
      */
-    public ArrayList<SearchAble> search(String search) {
+    public ArrayList<Book> search(String search) {
 
-        ArrayList<SearchAble> searchAble = getBooks(search);
+        ArrayList<Book> searchAble = getBooks(search);
         //searchAble.addAll(getUsers(search));
         for(SearchAble book: searchAble) {
             System.out.println(book);
@@ -76,18 +76,18 @@ public class DatabaseSearch {
     /**
      * Fetches and returns the book objects from the database based on the search String provided by the user.
      */
-    private ArrayList<SearchAble> getBooks(String search) {
+    private ArrayList<Book> getBooks(String search) {
 
-        ArrayList<SearchAble> books = new ArrayList<>();
+        ArrayList<Book> books = new ArrayList<>();
 
         Connection con = db.getDatabaseConnection();
-        String QUERY = String.format("SELECT * FROM book WHERE title ILIKE '%s' OR " +
-                "author ILIKE '%s' OR " +
-                "release_year :: text ILIKE '%s' OR " +
-                "genre ILIKE '%s' OR " +
-                "edition ILIKE '%s' OR " +
-                "publisher ILIKE '%s' OR " +
-                "isbn ILIKE '%s'", search, search, search, search, search, search, search);
+        String QUERY = String.format("SELECT * FROM book WHERE title ILIKE '%%%s%%' OR " +
+                "author ILIKE '%%%s%%' OR " +
+                "release_year :: text ILIKE '%%%s%%' OR " +
+                "genre ILIKE '%%%s%%' OR " +
+                "edition ILIKE '%%%s%%' OR " +
+                "publisher ILIKE '%%%s%%' OR " +
+                "isbn ILIKE '%%%s%%'", search, search, search, search, search, search, search);
 
         try {
             Statement stmt = con.createStatement();
@@ -104,6 +104,7 @@ public class DatabaseSearch {
                        isbn(rs.getString("isbn")).build();
 
                books.add(book);
+                System.out.println(book.getTitle());
             }
 
             stmt.close();
