@@ -1,16 +1,16 @@
 package controller.server;
 
-import database.books.DatabaseBooks;
 import database.chat.DatabaseChat;
 import database.search.DatabaseSearch;
 import database.user.DatabaseUser;
 import model.*;
+import model.chat.ChatObject;
+import model.chat.MessageObject;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.sql.SQLException;
 
 public class ClientHandler {
     private ObjectInputStream ois;

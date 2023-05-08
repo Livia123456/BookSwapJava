@@ -1,7 +1,8 @@
 package controller.server;
 
 import database.chat.DatabaseChat;
-import model.*;
+import model.chat.ChatObject;
+import model.chat.MessageObject;
 
 import java.io.ObjectOutputStream;
 
@@ -27,6 +28,11 @@ public class ChatController {
         int chatId;
 
         switch(chatObject.getStatus()) {        //continues to case open: -> both if the chat exists or not.
+
+            case populate:
+                clientHandler.sendMessage(dbChat.getActiveChats(chatObject));
+                break;
+
             case newChat:
                 if (dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), "")) == 0){
                     dbChat.addChat(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
