@@ -19,7 +19,6 @@ public class ChatController {
 
 
     public void addChatMessage(MessageObject messageObject){
-
         dbChat.addMessage(messageObject);
     }
 
@@ -27,10 +26,11 @@ public class ChatController {
     public void checkObject(ChatObject chatObject) {
         int chatId;
 
-        switch(chatObject.getStatus()) {
+        switch(chatObject.getStatus()) {        //continues to case open: -> both if the chat exists or not.
             case newChat:
-                dbChat.addChat(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
-                break;
+                if (dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), "")) == 0){
+                    dbChat.addChat(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
+            }
 
             case open:
                 chatId = dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
@@ -43,10 +43,6 @@ public class ChatController {
 
         }
 
-       /* if (chatObject.getStatus().equals(ChatStatus.open)) {
-            chatId = dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
-            clientHandler.sendMessage(dbChat.getChatHistory(chatId));
-        } */
 
     }
 

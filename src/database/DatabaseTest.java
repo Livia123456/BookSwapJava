@@ -33,7 +33,8 @@ public class DatabaseTest {
         /* chatTest.addMessage(new MessageObject(3, 1,
                 "Hey there, is your Bilbo book still available?")); */
 
-        chatTest.deleteChat(new ChatObject(1,3,ChatStatus.delete));
+       // chatTest.deleteChat(new ChatObject(1,3,ChatStatus.delete));
+
 
 
 
