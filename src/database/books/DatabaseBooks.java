@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class DatabaseBooks {
 
@@ -64,7 +65,7 @@ public class DatabaseBooks {
                 Book book = new Book.BookBuilder().title(rs.getString("title")).author(rs.getString("author")).
                         genre(rs.getString("genre")).release_date(rs.getString("release_year")).
                         edition(rs.getString("edition")).publisher(rs.getString("publisher")).
-                        isbn(rs.getString("isbn")).build();
+                        isbn(rs.getString("isbn")).bookId(rs.getInt("book_id")).build();
                 uploadedBooks.add(book);
             }
 
@@ -113,6 +114,25 @@ public class DatabaseBooks {
 
         }
         return book;
+    }
+
+    /**
+     * Removes a book from the database given the book's unique book ID.
+     */
+    public void deleteBook(int bookId) {
+
+        Connection con = db.getDatabaseConnection();
+        String QUERY = String.format("DELETE FROM book WHERE book_id = %d", bookId);
+
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(QUERY);
+            stmt.close();
+            con.close();
+            db.terminateIdle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

@@ -128,6 +128,10 @@ public class ClientHandler {
                         searchController.advancedSearch((AdvancedSearchObject) message);
                     }
 
+                    else if (message instanceof BookToDelete) {
+                        bookController.deleteBook(((BookToDelete) message).getBookId());
+                    }
+
 
                 }
             } catch(IOException | ClassNotFoundException e){
