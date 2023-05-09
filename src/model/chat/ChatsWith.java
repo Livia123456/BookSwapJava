@@ -4,15 +4,16 @@ import java.io.Serializable;
 
 public class ChatsWith implements Serializable {
 
-   // private Array
 
     private final static long serialVersionUID = 14L;
     private int chatId;
     private String name;
+    private int userId;
 
-    public ChatsWith(int chatId, String name){
+    public ChatsWith(int chatId, String name, int userId){
         this.chatId = chatId;
         this.name = name;
+        this.userId = userId;
 
     }
 
@@ -30,5 +31,13 @@ public class ChatsWith implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

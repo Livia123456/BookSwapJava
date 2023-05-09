@@ -188,17 +188,22 @@ public class DatabaseChat {
 
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("SELECT chat.chat_id, " +
-                "CASE " +
-                "WHEN chat.user_1_id = %d " +
-                "THEN users1.user_name " +
-                "ELSE users2.user_name " +
-                "END AS other_user_name " +
-                "FROM chat " +
-                "INNER JOIN users AS users1 ON chat.user_2_id = users1.user_id " +
-                "INNER JOIN users AS users2 ON chat.user_1_id = users2.user_id " +
-                "WHERE " +
-                "chat.user_1_id = %d OR chat.user_2_id = %d;",
-                chatObject.getUser1(), chatObject.getUser1(), chatObject.getUser1());
+                        "CASE " +
+                        "WHEN chat.user_1_id = %d THEN users1.user_name " +
+                        "ELSE users2.user_name " +
+                        "END AS other_user_name, " +
+                        "CASE " +
+                        "WHEN chat.user_1_id = %d THEN chat.user_2_id " +
+                        "ELSE chat.user_1_id " +
+                        "END AS other_user_id " +
+                        "FROM chat " +
+                        "INNER JOIN users AS users1 " +
+                        "ON chat.user_2_id = users1.user_id " +
+                        "INNER JOIN users AS users2 " +
+                        "ON chat.user_1_id = users2.user_id " +
+                        "WHERE  " +
+                        "chat.user_1_id = %d OR chat.user_2_id = %d;",
+                chatObject.getUser1(), chatObject.getUser1(), chatObject.getUser1(), chatObject.getUser1());
 
         try {
             Statement stmt = con.createStatement();
@@ -207,7 +212,8 @@ public class DatabaseChat {
             while (rs.next()) {
                 int chatId = rs.getInt("chat_id");
                 String name = rs.getString("other_user_name");
-                chatsWith.add(new ChatsWith(chatId, name));
+                int userId = rs.getInt("other_user_id");
+                chatsWith.add(new ChatsWith(chatId, name, userId));
             }
 
             stmt.close();
