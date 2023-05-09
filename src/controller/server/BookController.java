@@ -3,6 +3,7 @@ package controller.server;
 import database.books.DatabaseBooks;
 import model.Book;
 import model.BookToDelete;
+import model.UpdateBookList;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -22,17 +23,20 @@ public class BookController {
     }
 
     public void uploadBook(Book book) {
-        (book).setUploadedBy(clientHandler.getCurrentUser());
+        book.setUploadedBy(clientHandler.getCurrentUser());
         clientHandler.sendMessage(dbBook.addBook(book));
+        updateCurrentUsersBooks();
     }
 
     public void deleteBook(int bookId) {
         dbBook.deleteBook(bookId);
-        ArrayList<Book> books = clientHandler.getCurrentUser().getCurrentUsersUploadedBooks();
-       /* for (Book: //TODO skicka tillbaka lista med böcker som är aktuell!!!
-             ) {
-            
-        }*/
+        updateCurrentUsersBooks();
+    }
+
+    private void updateCurrentUsersBooks() {
+        ArrayList<Book> books = loadCurrentUsersUploadedBooks();
+        clientHandler.getCurrentUser().setCurrentUsersUploadedBooks(books);
+        clientHandler.sendMessage(new UpdateBookList(books));
     }
 
     public ArrayList<Book> loadCurrentUsersUploadedBooks() {
