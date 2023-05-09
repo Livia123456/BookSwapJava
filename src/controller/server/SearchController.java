@@ -1,6 +1,7 @@
 package controller.server;
 
 import database.search.DatabaseSearch;
+import model.SearchResult;
 import model.search.AdvancedSearchObject;
 import model.search.AdvancedSearchResult;
 import model.search.SearchObject;

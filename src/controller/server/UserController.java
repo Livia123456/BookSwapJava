@@ -27,8 +27,9 @@ public class UserController {
         try {
             if (userInfo.isCorrectInfo()) {
                 currentUser = userInfo;
-                currentUser.setCurrentUsersUploadedBooks(clientHandler.getBookController().loadCurrentUsersUploadedBooks());
-                oos.writeObject(userInfo);
+                currentUser.setCurrentUsersUploadedBooks(
+                        clientHandler.getBookController().loadCurrentUsersUploadedBooks());
+                oos.writeObject(currentUser);
                 oos.flush();
             }
         } catch (Exception e) {

@@ -54,7 +54,8 @@ public class DatabaseUser {
                     if (rs.getString("user_password").trim().equals(userInfo.getPassword())) {
                         userInfo.setCorrectInfo(true);
                     }
-                   userInfo.setUserId(rs.getInt("user_id"));
+                    userInfo.setName(rs.getString("user_name"));
+                    userInfo.setUserId(rs.getInt("user_id"));
                 }
             }
 

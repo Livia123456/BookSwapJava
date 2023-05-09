@@ -4,6 +4,7 @@ import database.chat.DatabaseChat;
 import database.search.DatabaseSearch;
 import database.user.DatabaseUser;
 import model.*;
+import model.search.*;
 import model.chat.ChatObject;
 import model.chat.MessageObject;
 import model.search.AdvancedSearchObject;
