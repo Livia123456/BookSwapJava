@@ -5,6 +5,7 @@ import model.search.SearchAble;
 
 import javax.swing.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Class to store information about a book.
@@ -146,7 +147,9 @@ public class Book implements Serializable, SearchAble {
             return this;
         }
         public BookBuilder genre(String genre) {
-            book.genre = genre;
+            if (!Objects.equals(genre, "-")) {
+                book.genre = genre;
+            }
             return this;
         }
 
