@@ -60,18 +60,13 @@ public class DatabaseChat {
      */
     public void addChat(MessageObject messageObject) {
 
-        int chatId = 0;
-
         Connection con = db.getDatabaseConnection();
-
         String QUERY = String.format("INSERT INTO chat " +
                 "(user_1_id, user_2_id) VALUES (%d, %d)", messageObject.getSender(), messageObject.getReciever());
 
         try {
             Statement stmt = con.createStatement();
             stmt.executeUpdate(QUERY);
-
-            chatId = getChatId(messageObject);
 
             stmt.close();
             con.close();
@@ -160,7 +155,9 @@ public class DatabaseChat {
         return chatHistory;
     }
 
-
+    /**
+     * Deletes a chat and it's messages -> Trigger on messages that deletes the chat.
+     */
     public void deleteChat(ChatObject chatObject){
 
         int chatId = getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
