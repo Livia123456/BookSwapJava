@@ -67,6 +67,7 @@ public class DatabaseBooks {
                         edition(rs.getString("edition")).publisher(rs.getString("publisher")).
                         isbn(rs.getString("isbn")).bookId(rs.getInt("book_id")).build();
                 uploadedBooks.add(book);
+                System.out.println(book.getTitle());
             }
 
         } catch (Exception e) {

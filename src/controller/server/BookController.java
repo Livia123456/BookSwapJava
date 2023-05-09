@@ -28,6 +28,11 @@ public class BookController {
 
     public void deleteBook(int bookId) {
         dbBook.deleteBook(bookId);
+        ArrayList<Book> books = clientHandler.getCurrentUser().getCurrentUsersUploadedBooks();
+       /* for (Book: //TODO skicka tillbaka lista med böcker som är aktuell!!!
+             ) {
+            
+        }*/
     }
 
     public ArrayList<Book> loadCurrentUsersUploadedBooks() {
