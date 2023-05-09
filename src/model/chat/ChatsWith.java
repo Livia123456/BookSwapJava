@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class ChatsWith implements Serializable {
 
+   // private Array
+
     private final static long serialVersionUID = 14L;
     private int chatId;
     private String name;
