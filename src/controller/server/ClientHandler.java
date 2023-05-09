@@ -6,6 +6,8 @@ import database.user.DatabaseUser;
 import model.*;
 import model.chat.ChatObject;
 import model.chat.MessageObject;
+import model.search.AdvancedSearchObject;
+import model.search.SearchObject;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -113,7 +115,6 @@ public class ClientHandler {
 
                     else if (message instanceof MessageObject) {
                         chatController.addChatMessage((MessageObject) message);
-
                     }
 
                     else if (message instanceof ChatObject) {

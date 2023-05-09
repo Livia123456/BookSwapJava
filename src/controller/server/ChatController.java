@@ -27,7 +27,7 @@ public class ChatController {
     public void checkObject(ChatObject chatObject) {
         int chatId;
 
-        switch(chatObject.getStatus()) {        //continues to case open: -> both if the chat exists or not.
+        switch(chatObject.getStatus()) {
 
             case populate:
                 clientHandler.sendMessage(dbChat.getActiveChats(chatObject));

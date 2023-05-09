@@ -1,4 +1,6 @@
-package model;
+package model.search;
+
+import model.Book;
 
 import java.io.Serial;
 import java.io.Serializable;
