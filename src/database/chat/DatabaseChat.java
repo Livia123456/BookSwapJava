@@ -182,7 +182,7 @@ public class DatabaseChat {
     /**
      * Returns a list of ChatsWith objects -> parameters: chatObject (currentUser + Status.populate)
      */
-    public Object getActiveChats(ChatObject chatObject) {
+    public ArrayList<ChatsWith> getActiveChats(ChatObject chatObject) {
 
         ArrayList<ChatsWith> chatsWith = new ArrayList<>();
 
