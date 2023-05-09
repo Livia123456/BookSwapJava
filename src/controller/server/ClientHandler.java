@@ -44,6 +44,7 @@ public class ClientHandler {
         this.userController = new UserController(this);
         this.bookController = new BookController(this);
         this.searchController = new SearchController(this);
+        this.chatController = new ChatController(this);
         new receiverThread().start();
     }
 

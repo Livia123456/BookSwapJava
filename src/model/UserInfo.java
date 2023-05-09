@@ -1,5 +1,6 @@
 package model;
 
+import model.chat.ChatsWith;
 import model.search.SearchAble;
 
 import java.io.Serializable;
@@ -18,7 +19,30 @@ public class UserInfo implements Serializable, SearchAble {
     private int userId;
     private boolean correctInfo = false;
     private ArrayList<Book> currentUsersUploadedBooks;
+    private ArrayList<ChatsWith> chatsWith;
 
+
+
+    public UserInfo(Email email, String password) {
+        this.email = email;
+        this.password = password;
+        this.currentUsersUploadedBooks = new ArrayList<>();
+        this.chatsWith = new ArrayList<>();
+    }
+
+    public UserInfo(int userId, String name, Email email){
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+    }
+
+    public ArrayList<ChatsWith> getChatsWith() {
+        return chatsWith;
+    }
+
+    public void setChatsWith(ArrayList<ChatsWith> chatsWith) {
+        this.chatsWith = chatsWith;
+    }
 
     public void setCurrentUsersUploadedBooks(ArrayList<Book> currentUsersUploadedBooks) {
         this.currentUsersUploadedBooks = currentUsersUploadedBooks;
@@ -26,18 +50,6 @@ public class UserInfo implements Serializable, SearchAble {
 
     public ArrayList<Book> getCurrentUsersUploadedBooks() {
         return currentUsersUploadedBooks;
-    }
-
-    public UserInfo(Email email, String password) {
-        this.email = email;
-        this.password = password;
-        this.currentUsersUploadedBooks = new ArrayList<>();
-    }
-
-    public UserInfo(int userId, String name, Email email){
-        this.userId = userId;
-        this.name = name;
-        this.email = email;
     }
 
     public Email getEmail() {
