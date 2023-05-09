@@ -1,6 +1,8 @@
 package model;
 
 
+import model.search.SearchAble;
+
 import javax.swing.*;
 import java.io.Serializable;
 

@@ -2,13 +2,14 @@ package database.search;
 
 import database.Database;
 import model.*;
+import model.search.AdvancedSearchObject;
+import model.search.SearchAble;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Queue;
 
 /**
  * Handles the database query's associated with the search function.

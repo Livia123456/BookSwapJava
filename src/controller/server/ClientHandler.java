@@ -1,16 +1,18 @@
 package controller.server;
 
-import database.books.DatabaseBooks;
 import database.chat.DatabaseChat;
 import database.search.DatabaseSearch;
 import database.user.DatabaseUser;
 import model.*;
+import model.chat.ChatObject;
+import model.chat.MessageObject;
+import model.search.AdvancedSearchObject;
+import model.search.SearchObject;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.sql.SQLException;
 
 public class ClientHandler {
     private ObjectInputStream ois;
@@ -113,7 +115,6 @@ public class ClientHandler {
 
                     else if (message instanceof MessageObject) {
                         chatController.addChatMessage((MessageObject) message);
-
                     }
 
                     else if (message instanceof ChatObject) {
@@ -126,6 +127,10 @@ public class ClientHandler {
 
                     else if (message instanceof AdvancedSearchObject) {
                         searchController.advancedSearch((AdvancedSearchObject) message);
+                    }
+
+                    else if (message instanceof BookToDelete) {
+                        bookController.deleteBook(((BookToDelete) message).getBookId());
                     }
 
 

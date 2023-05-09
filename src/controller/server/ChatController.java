@@ -1,7 +1,8 @@
 package controller.server;
 
 import database.chat.DatabaseChat;
-import model.*;
+import model.chat.ChatObject;
+import model.chat.MessageObject;
 
 import java.io.ObjectOutputStream;
 
@@ -19,7 +20,6 @@ public class ChatController {
 
 
     public void addChatMessage(MessageObject messageObject){
-
         dbChat.addMessage(messageObject);
     }
 
@@ -28,9 +28,15 @@ public class ChatController {
         int chatId;
 
         switch(chatObject.getStatus()) {
-            case newChat:
-                dbChat.addChat(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
+
+            case populate:
+                clientHandler.sendMessage(dbChat.getActiveChats(chatObject));
                 break;
+
+            case newChat:
+                if (dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), "")) == 0){
+                    dbChat.addChat(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
+            }
 
             case open:
                 chatId = dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
@@ -43,10 +49,6 @@ public class ChatController {
 
         }
 
-       /* if (chatObject.getStatus().equals(ChatStatus.open)) {
-            chatId = dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
-            clientHandler.sendMessage(dbChat.getChatHistory(chatId));
-        } */
 
     }
 

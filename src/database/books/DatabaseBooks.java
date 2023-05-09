@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class DatabaseBooks {
 
@@ -54,8 +55,6 @@ public class DatabaseBooks {
      */
     public ArrayList<Book> getBooksUploadedByUser(int userId) {
         ArrayList<Book> uploadedBooks = new ArrayList<>();
-        Book.BookBuilder bookBuilder = new Book.BookBuilder();
-
         try {
             Connection con = db.getDatabaseConnection();
             String QUERY = String.format("SELECT * FROM book where user_id = %d", userId);
@@ -63,16 +62,17 @@ public class DatabaseBooks {
             ResultSet rs = stmt.executeQuery(QUERY);
 
             while (rs.next()) {
-                Book book = bookBuilder.title(rs.getString("title")).author(rs.getString("author")).
+                Book book = new Book.BookBuilder().title(rs.getString("title")).author(rs.getString("author")).
                         genre(rs.getString("genre")).release_date(rs.getString("release_year")).
                         edition(rs.getString("edition")).publisher(rs.getString("publisher")).
-                        isbn(rs.getString("isbn")).build();
+                        isbn(rs.getString("isbn")).bookId(rs.getInt("book_id")).build();
                 uploadedBooks.add(book);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return uploadedBooks;
     }
 
@@ -114,6 +114,25 @@ public class DatabaseBooks {
 
         }
         return book;
+    }
+
+    /**
+     * Removes a book from the database given the book's unique book ID.
+     */
+    public void deleteBook(int bookId) {
+
+        Connection con = db.getDatabaseConnection();
+        String QUERY = String.format("DELETE FROM book WHERE book_id = %d", bookId);
+
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(QUERY);
+            stmt.close();
+            con.close();
+            db.terminateIdle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

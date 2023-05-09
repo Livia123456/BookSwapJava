@@ -2,6 +2,7 @@ package controller.server;
 
 import database.books.DatabaseBooks;
 import model.Book;
+import model.BookToDelete;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -25,8 +26,11 @@ public class BookController {
         clientHandler.sendMessage(dbBook.addBook(book));
     }
 
+    public void deleteBook(int bookId) {
+        dbBook.deleteBook(bookId);
+    }
+
     public ArrayList<Book> loadCurrentUsersUploadedBooks() {
-        System.out.println(clientHandler.getCurrentUser().getUserId());
         return dbBook.getBooksUploadedByUser(clientHandler.getCurrentUser().getUserId());
     }
 
