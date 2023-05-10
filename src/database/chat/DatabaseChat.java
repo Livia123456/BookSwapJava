@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class DatabaseChat {
 
     private Database db;
-
     public DatabaseChat(){
         db = new Database();
     }
@@ -87,11 +86,11 @@ public class DatabaseChat {
 
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("SELECT chat_id FROM chat WHERE " +
-                        "user_1_id = %d OR " +
-                        "user_2_id = %d AND " +
-                        "user_1_id = %d OR " +
-                        "user_2_id = %d", messageObject.getSender(), messageObject.getSender(),
-                messageObject.getReciever(), messageObject.getReciever());
+                        "user_1_id = %d AND " +
+                        "user_2_id = %d OR " +
+                        "user_1_id = %d AND " +
+                        "user_2_id = %d", messageObject.getSender(), messageObject.getReciever(),
+                messageObject.getSender(), messageObject.getReciever());
 
         try {
             Statement stmt = con.createStatement();
@@ -138,9 +137,9 @@ public class DatabaseChat {
                 int user2 = rs.getInt("user_2_id");
 
                 if(sender == user1){
-                    chatHistory.add(new MessageObject(sender, user2, rs.getString("message")));
+                    chatHistory.add(new MessageObject(user1, user2, rs.getString("message")));
                 } else{
-                    chatHistory.add(new MessageObject(sender, user1, rs.getString("message")));
+                    chatHistory.add(new MessageObject(user2, user1, rs.getString("message")));
                 }
             }
 
