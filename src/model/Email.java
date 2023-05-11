@@ -34,3 +34,4 @@ public class Email implements Serializable {
         isRegistered = registered;
     }
 }
+

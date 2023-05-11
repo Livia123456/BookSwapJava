@@ -1,10 +1,14 @@
 package model.search;
 
-import java.io.Serial;
 import java.io.Serializable;
 
+/**
+ * Class to store information relating to an advanced search query.
+ * @author Livia Tengelin
+ */
+
 public class AdvancedSearchObject implements Serializable {
-    @Serial
+
     private final static long serialVersionUID = 99L;
     private String isbn;
     private String title;
@@ -14,12 +18,12 @@ public class AdvancedSearchObject implements Serializable {
     private String edition;
     private String publisher;
 
-    public AdvancedSearchObject(String isbn, String title, String author, String genre, String year, String edition,
-                                String publisher) {
+    public AdvancedSearchObject(String isbn, String title, String author, String genre,
+                                String year, String edition, String publisher) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
-        this.genre = genre.equals("--") ? null : genre;
+        this.genre = genre.equals("-") ? null : genre;
         this.year = year;
         this.edition = edition;
         this.publisher = publisher;

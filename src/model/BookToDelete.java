@@ -2,6 +2,11 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * Class to store a Book-object to be deleted
+ * @author Sebastian Zulj
+ */
+
 public class BookToDelete implements Serializable {
 
     private final static long serialVersionUID = 1337L;

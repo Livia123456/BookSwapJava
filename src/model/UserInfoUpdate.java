@@ -2,6 +2,11 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * Class storing new information about a user to be inserted into the database.
+ * @author Sebastian Zulj
+ */
+
 public class UserInfoUpdate implements Serializable {
 
     static final long serialVersionUID = 52L;
