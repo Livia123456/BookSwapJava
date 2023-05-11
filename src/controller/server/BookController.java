@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for all the book-related communications with the database.
+ * @author Livia Tengelin, Sebastian Zulj
+ */
+
 public class BookController {
 
     private ObjectOutputStream oos;

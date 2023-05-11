@@ -15,6 +15,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * This class is responsible for handling the clients connected to the server.
+ * @author Kasper Lindberg, Livia Tengelin, Sebastian Zulj
+ */
 public class ClientHandler {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
@@ -82,6 +86,9 @@ public class ClientHandler {
         }
     }
 
+    /**
+     * The reciever thread is responsible for checking what types of messages/requests a connected client sends.
+     */
     private class receiverThread extends Thread {
 
         @Override

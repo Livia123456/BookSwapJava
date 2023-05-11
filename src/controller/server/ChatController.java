@@ -6,6 +6,10 @@ import model.chat.MessageObject;
 
 import java.io.ObjectOutputStream;
 
+/**
+ * This class is responsible for all the chat-related communications with the database
+ * @author Kaser Lindberg
+ */
 public class ChatController {
 
     private DatabaseChat dbChat;

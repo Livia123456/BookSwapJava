@@ -6,7 +6,10 @@ import model.search.AdvancedSearchObject;
 import model.search.AdvancedSearchResult;
 import model.search.SearchObject;
 
-
+/**
+ * This class is responsible for all the search-related communications with the database
+ * @author Livia Tengelin
+ */
 public class SearchController {
     private ClientHandler clientHandler;
     private DatabaseSearch dbSearch;

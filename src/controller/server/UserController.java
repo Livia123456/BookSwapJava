@@ -9,6 +9,11 @@ import model.UserInfoUpdate;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+/**
+ * This class is responsible for all the user-related communications with the database
+ * @author Livia Tengelin, Sebastian Zulj
+ */
+
 public class UserController {
     private DatabaseUser dbUser;
     private UserInfo currentUser;
