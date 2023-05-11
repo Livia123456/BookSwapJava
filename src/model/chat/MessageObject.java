@@ -2,16 +2,21 @@ package model.chat;
 
 import java.io.Serializable;
 
+/**
+ * Class to store information about a specific chat message.
+ * @author Kasper Lindberg
+ */
+
 public class MessageObject implements Serializable {
 
     private final static long serialVersionUID = 10L;
     private int sender;
-    private int reciever;
+    private int receiver;
     private String message;
 
-    public MessageObject(int sender, int reciever, String message){
+    public MessageObject(int sender, int receiver, String message) {
         this.sender = sender;
-        this.reciever = reciever;
+        this.receiver = receiver;
         this.message = message;
     }
 
@@ -23,12 +28,12 @@ public class MessageObject implements Serializable {
         this.sender = sender;
     }
 
-    public int getReciever() {
-        return reciever;
+    public int getReceiver() {
+        return receiver;
     }
 
-    public void setReciever(int reciever) {
-        this.reciever = reciever;
+    public void setReceiver(int receiver) {
+        this.receiver = receiver;
     }
 
     public String getMessage() {

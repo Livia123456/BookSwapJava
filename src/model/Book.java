@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author Sebastian Zulj, Kasper Lindberg
  */
 
-public class Book implements Serializable, SearchAble {
+public class Book implements SearchAble, Serializable {
 
     private final static long serialVersionUID = 1L;
     private int bookId;
@@ -181,7 +181,6 @@ public class Book implements Serializable, SearchAble {
         public Book build() {
             return book;
         }
-
 
     }
 }

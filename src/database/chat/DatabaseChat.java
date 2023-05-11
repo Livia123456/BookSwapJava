@@ -61,7 +61,7 @@ public class DatabaseChat {
 
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("INSERT INTO chat " +
-                "(user_1_id, user_2_id) VALUES (%d, %d)", messageObject.getSender(), messageObject.getReciever());
+                "(user_1_id, user_2_id) VALUES (%d, %d)", messageObject.getSender(), messageObject.getReceiver());
 
         try {
             Statement stmt = con.createStatement();
@@ -89,8 +89,8 @@ public class DatabaseChat {
                         "user_1_id = %d AND " +
                         "user_2_id = %d OR " +
                         "user_1_id = %d AND " +
-                        "user_2_id = %d", messageObject.getSender(), messageObject.getReciever(),
-                messageObject.getSender(), messageObject.getReciever());
+                        "user_2_id = %d", messageObject.getSender(), messageObject.getReceiver(),
+                messageObject.getSender(), messageObject.getReceiver());
 
         try {
             Statement stmt = con.createStatement();

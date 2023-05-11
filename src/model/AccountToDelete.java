@@ -2,6 +2,11 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * Class to store a UserInfo-object to be deleted
+ * @author Sebastian Zulj
+ */
+
 public class AccountToDelete implements Serializable {
 
     static final long serialVersionUID = 52345L;

@@ -1,16 +1,14 @@
 package model;
 
-import model.chat.ChatsWith;
-import model.search.SearchAble;
-
 import java.io.Serializable;
 import java.util.ArrayList;
+import model.chat.*;
 
 /**
  * Class to store information about a user.
  * @author Livia Tengelin, Kasper Lindberg, Sebasitan Zulj
  */
-public class UserInfo implements Serializable, SearchAble {
+public class UserInfo implements Serializable {
 
     static final long serialVersionUID = 42L;
     private Email email;
@@ -30,12 +28,6 @@ public class UserInfo implements Serializable, SearchAble {
         this.chatsWith = new ArrayList<>();
     }
 
-    public UserInfo(int userId, String name, Email email){
-        this.userId = userId;
-        this.name = name;
-        this.email = email;
-    }
-
     public ArrayList<ChatsWith> getChatsWith() {
         return chatsWith;
     }
@@ -51,6 +43,8 @@ public class UserInfo implements Serializable, SearchAble {
     public ArrayList<Book> getCurrentUsersUploadedBooks() {
         return currentUsersUploadedBooks;
     }
+
+
 
     public Email getEmail() {
         return email;
