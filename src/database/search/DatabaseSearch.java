@@ -42,9 +42,9 @@ public class DatabaseSearch {
     /**
      * Fetches and returns the user objects from the database based on the search String provided by the user.
      */
-    private ArrayList<SearchAble> getUsers(String search) {
+    private ArrayList<UserInfo> getUsers(String search) {
 
-        ArrayList<SearchAble> users = new ArrayList<>();
+        ArrayList<UserInfo> users = new ArrayList<>();
 
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("SELECT * FROM users WHERE " +

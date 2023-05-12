@@ -28,6 +28,12 @@ public class UserInfo implements Serializable {
         this.chatsWith = new ArrayList<>();
     }
 
+    public UserInfo(int userId, String name, Email email) {
+        this.email = email;
+        this.userId = userId;
+        this.name = name;
+    }
+
     public ArrayList<ChatsWith> getChatsWith() {
         return chatsWith;
     }
