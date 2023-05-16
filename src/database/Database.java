@@ -1,10 +1,23 @@
 package database;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
+import java.util.concurrent.Semaphore;
 
 public class Database {
+    private static Database single_instance;
+    private Semaphore dbSemaphore;
 
+    private Database() {
+        dbSemaphore = new Semaphore(1);
+    }
+    public static synchronized Database getInstance()
+    {
+        if (single_instance == null)
+            single_instance = new Database();
 
+        return single_instance;
+    }
     /**
      * Creates and returns a connection to the DB.
      */
@@ -40,5 +53,9 @@ public class Database {
         rs.close();
         getPids.close();
         con.close();
+    }
+
+    public Semaphore getDbSemaphore() {
+        return dbSemaphore;
     }
 }

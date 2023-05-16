@@ -9,17 +9,25 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.Semaphore;
 
 public class DatabaseUser {
 
     private Database db;
+    private Semaphore semaphore;
 
     public DatabaseUser(){
-        db = new Database();
+        db = Database.getInstance();
+        semaphore = db.getDbSemaphore();
     }
 
 
     public void newUser(UserInfo userInfo) {
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         Connection con = db.getDatabaseConnection();
 
@@ -37,9 +45,15 @@ public class DatabaseUser {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        semaphore.release();
     }
 
     public UserInfo checkUserInfo(UserInfo userInfo) {
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         Connection con = db.getDatabaseConnection();
         String QUERY =  String.format("SELECT * FROM users");
@@ -65,11 +79,16 @@ public class DatabaseUser {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        semaphore.release();
         return userInfo;
     }
 
     public void updateUserInfo(int currentUserId, UserInfoUpdate newUserInfo) {
-
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         String newName = newUserInfo.getName();
         String newPassword = newUserInfo.getPassword();
         String newEmail = newUserInfo.getEmail().getEmailAddress();
@@ -88,11 +107,15 @@ public class DatabaseUser {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        semaphore.release();
     }
 
     public void removeUserFromDatabase(int userId) {
-
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("DELETE FROM users WHERE user_id = %d", userId);
 
@@ -106,10 +129,16 @@ public class DatabaseUser {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        semaphore.release();
     }
 
     public int getUserId(UserInfo userInfo) throws SQLException {
         int userId = 0;
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("SELECT user_id FROM users WHERE user_email LIKE '%s' AND user_password LIKE '%s' ",
                 userInfo.getEmail(), userInfo.getPassword());
@@ -124,12 +153,16 @@ public class DatabaseUser {
         stmt.close();
         con.close();
         db.terminateIdle();
-
+        semaphore.release();
         return userId;
     }
 
     public boolean checkEmail(String email) {
-
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Connection con = db.getDatabaseConnection();
         String QUERY =  String.format("SELECT COUNT(*) FROM users WHERE user_email LIKE '%s'", email);
         boolean result = false;
@@ -148,6 +181,7 @@ public class DatabaseUser {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        semaphore.release();
         return result;
     }
 
