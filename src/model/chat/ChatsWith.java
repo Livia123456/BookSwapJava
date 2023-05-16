@@ -1,5 +1,7 @@
 package model.chat;
 
+import model.UserInfo;
+
 import java.io.Serializable;
 
 /**
@@ -11,6 +13,33 @@ import java.io.Serializable;
 public class ChatsWith implements Serializable {
 
     private final static long serialVersionUID = 14L;
+    private int chatId;
+    private UserInfo user;
+
+    public ChatsWith(int chatId, UserInfo user) {
+        this.chatId = chatId;
+        this.user = user;
+
+    }
+
+    public int getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(int chatId) {
+        this.chatId = chatId;
+    }
+
+    public String getName() {
+        return user.getName();
+    }
+
+
+    public int getUserId() {
+        return user.getUserId();
+    }
+
+    /*
     private int chatId;
     private String name;
     private int userId;
@@ -45,4 +74,6 @@ public class ChatsWith implements Serializable {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+     */
 }
