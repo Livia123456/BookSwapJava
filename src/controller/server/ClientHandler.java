@@ -2,14 +2,13 @@ package controller.server;
 
 import database.chat.DatabaseChat;
 import database.search.DatabaseSearch;
-import database.user.DatabaseUser;
 import model.*;
-import model.search.*;
 import model.chat.ChatObject;
 import model.chat.MessageObject;
 import model.search.AdvancedSearchObject;
 import model.search.SearchObject;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -145,6 +144,11 @@ public class ClientHandler {
 
                     else if (message instanceof BookToDelete) {
                         bookController.deleteBook(((BookToDelete) message).getBookId());
+                    }
+
+                    else if (message instanceof ImageIcon) {
+                        userController.savingImage((ImageIcon) message);
+
                     }
 
 

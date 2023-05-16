@@ -6,6 +6,10 @@ import model.Email;
 import model.UserInfo;
 import model.UserInfoUpdate;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
@@ -97,4 +101,26 @@ public class UserController {
     }
 
 
+    public void savingImage(ImageIcon message) {
+
+
+        BufferedImage image = new BufferedImage(
+                message.getIconWidth(),
+                message.getIconHeight(),
+                BufferedImage.TYPE_INT_ARGB
+        );
+        message.paintIcon(null, image.getGraphics(), 0, 0);
+
+        File outputFile = new File(String.format("files/profile_images/%d_image", currentUser.getUserId()));
+
+        try {
+            // Use the ImageIO.write() method to write the BufferedImage to the file
+            ImageIO.write(image, "png", outputFile);
+            System.out.println("Image saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
