@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="84f82b81-0de1-48b7-ab63-a737c5c45882" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/search/DatabaseSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/search/DatabaseSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/UserInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/server/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/server/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/server/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/chat/DatabaseChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/chat/DatabaseChat.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,16 +42,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/livia/Kurser/Da336a/BookSwapJava&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/livia/Kurser/Da336a/BookSwapJava",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propVCSSupport.ChangelistConflict"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/files" />
@@ -134,10 +137,19 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/database/search/DatabaseSearch.java</url>
-          <line>81</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/src/controller/server/ChatController.java</url>
+          <line>27</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/database/chat/DatabaseChat.java</url>
+          <line>98</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.postgresql.util.PSQLException" package="org.postgresql.util" />
+          <option name="timeStamp" value="8" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 /**
  * Handles the database query's associated with the search function.
@@ -18,9 +19,11 @@ import java.util.ArrayList;
 public class DatabaseSearch {
 
     private Database db;
+    private Semaphore semaphore;
 
     public DatabaseSearch(){
-        db = new Database();
+        db = Database.getInstance();
+        semaphore = db.getDbSemaphore();
     }
 
 
@@ -78,7 +81,11 @@ public class DatabaseSearch {
      * Fetches and returns the book objects from the database based on the search String provided by the user.
      */
     private ArrayList<Book> getBooks(String search) {
-
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         ArrayList<Book> books = new ArrayList<>();
 
         Connection con = db.getDatabaseConnection();
@@ -115,6 +122,7 @@ public class DatabaseSearch {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        semaphore.release();
         return books;
     }
 
@@ -138,7 +146,11 @@ public class DatabaseSearch {
         }
         query = query.substring(0,query.lastIndexOf(" A"));
         ArrayList<Book> books = new ArrayList<>();
-
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Connection con = db.getDatabaseConnection();
 
 
@@ -166,6 +178,7 @@ public class DatabaseSearch {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        semaphore.release();
         return books;
     }
 }

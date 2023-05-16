@@ -16,14 +16,12 @@ import java.util.ArrayList;
 public class Server extends Thread{
     private ServerSocket serverSocket;
     private int port;
-    private DatabaseUser dbUser;
     private ArrayList<ClientHandler> clients;
 
 
     public Server(int port) {
 
         this.port = port;
-        dbUser = new DatabaseUser();
         clients = new ArrayList<>();
 
         try {
@@ -44,11 +42,15 @@ public class Server extends Thread{
 
         while (true) {
             try {
-                clients.add(new ClientHandler(serverSocket.accept(), dbUser));
+                clients.add(new ClientHandler(serverSocket.accept(), this));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public ArrayList<ClientHandler> getClients() {
+        return clients;
     }
 
     public static void main(String[] args) {
