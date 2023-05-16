@@ -97,36 +97,31 @@ public class DatabaseChat {
     public int getChatId(MessageObject messageObject){
 
         int chatId = 0;
-        try {
-            semaphore.acquire();
 
-        Connection con = db.getDatabaseConnection();
-        String QUERY = String.format("SELECT chat_id FROM chat WHERE " +
-                        "user_1_id = %d AND " +
-                        "user_2_id = %d OR " +
-                        "user_1_id = %d AND " +
-                        "user_2_id = %d", messageObject.getSender(), messageObject.getReceiver(),
-                messageObject.getSender(), messageObject.getReceiver());
+            Connection con = db.getDatabaseConnection();
+            String QUERY = String.format("SELECT chat_id FROM chat WHERE " +
+                            "user_1_id = %d AND " +
+                            "user_2_id = %d OR " +
+                            "user_1_id = %d AND " +
+                            "user_2_id = %d", messageObject.getSender(), messageObject.getReceiver(),
+                    messageObject.getReceiver(), messageObject.getSender());
 
-        try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(QUERY);
+            try {
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(QUERY);
 
-            while (rs.next()) {
-                chatId = rs.getInt("chat_id");
+                while (rs.next()) {
+                    chatId = rs.getInt("chat_id");
+                }
+
+                stmt.close();
+                con.close();
+                db.terminateIdle();
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
 
-            stmt.close();
-            con.close();
-            db.terminateIdle();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        semaphore.release();
         return chatId;
     }
 

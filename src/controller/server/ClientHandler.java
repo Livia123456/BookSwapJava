@@ -32,10 +32,11 @@ public class ClientHandler {
     private BookController bookController;
     private ChatController chatController;
     private SearchController searchController;
+    private Server server;
 
 
-    public ClientHandler(Socket socket, DatabaseUser dbUser) {
-
+    public ClientHandler(Socket socket, Server server) {
+        this.server = server;
         this.dbChat = new DatabaseChat();
         this.socket = socket;
         try {
@@ -84,6 +85,10 @@ public class ClientHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Server getServer() {
+        return server;
     }
 
     /**
