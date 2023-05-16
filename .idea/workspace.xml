@@ -132,11 +132,10 @@
           <line>84</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/database/search/DatabaseSearch.java</url>
-          <line>88</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="org.postgresql.util.PSQLException" package="org.postgresql.util" />
+          <option name="timeStamp" value="8" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
