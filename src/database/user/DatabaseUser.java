@@ -42,7 +42,8 @@ public class DatabaseUser {
             con.close();
             db.terminateIdle();
 
-        } catch (SQLException e) {
+        } catch (org.postgresql.util.PSQLException e) {}
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
         semaphore.release();
