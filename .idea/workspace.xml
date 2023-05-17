@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="84f82b81-0de1-48b7-ab63-a737c5c45882" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/database/search/DatabaseSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/search/DatabaseSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/UserInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/UserInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/server/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/server/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/books/DatabaseBooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/books/DatabaseBooks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/user/DatabaseUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/user/DatabaseUser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +131,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/controller/server/UserController.java</url>
-          <line>84</line>
+          <line>88</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

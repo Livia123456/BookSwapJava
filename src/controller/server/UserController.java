@@ -8,6 +8,7 @@ import model.UserInfoUpdate;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 
 /**
  * This class is responsible for all the user-related communications with the database
@@ -50,13 +51,16 @@ public class UserController {
     }
 
     private void createNewUser(UserInfo userInfo) {
-
         dbUser.newUser(userInfo);
         userInfo.setCorrectInfo(true);
 
         try {
-            oos.writeObject(userInfo);
-            oos.flush();
+            if(userInfo.getUserId() != 0) {
+                currentUser = userInfo;
+                oos.writeObject(currentUser);
+                System.out.println(currentUser.getName() + " " + currentUser.getUserId() + " sent back to client");
+                oos.flush();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

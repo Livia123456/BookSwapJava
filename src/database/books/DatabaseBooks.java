@@ -84,6 +84,7 @@ public class DatabaseBooks {
     public Book addBook(Book book) {
 
         //System.out.println("Vi kom hit");
+        System.out.println(book.getUploadedBy().getUserId() + book.getUploadedBy().getName());
 
         Connection con = db.getDatabaseConnection();
         String QUERY = "";
