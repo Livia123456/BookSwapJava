@@ -10,6 +10,7 @@ import model.chat.MessageObject;
 import model.search.AdvancedSearchObject;
 import model.search.SearchObject;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -149,7 +150,10 @@ public class ClientHandler {
 
 
                 }
-            } catch(IOException | ClassNotFoundException e){
+            } catch (EOFException e) {
+                System.out.println("Client disconnected");
+            }
+            catch(IOException | ClassNotFoundException e){
                 throw new RuntimeException(e);
             }
 

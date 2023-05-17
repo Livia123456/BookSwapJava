@@ -34,9 +34,9 @@ public class DatabaseSearch {
 
         ArrayList<Book> searchAble = getBooks(search);
         //searchAble.addAll(getUsers(search));
-        for(SearchAble book: searchAble) {
-            System.out.println(book);
-        }
+        //for(SearchAble book: searchAble) {
+        //    System.out.println(book);
+        //}
 
         return searchAble;
     }
@@ -109,6 +109,7 @@ public class DatabaseSearch {
                        genre(rs.getString("genre")).
                        edition(rs.getString("edition")).
                        publisher(rs.getString("publisher")).
+                       uploadedBy(new UserInfo(rs.getInt("user_id"))).
                        isbn(rs.getString("isbn")).build();
 
                books.add(book);
