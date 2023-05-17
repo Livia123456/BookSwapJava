@@ -34,6 +34,11 @@ public class UserInfo implements Serializable {
         this.name = name;
     }
 
+    public UserInfo(String name, int userId) {
+        this.userId = userId;
+        this.name = name;
+    }
+
     public ArrayList<ChatsWith> getChatsWith() {
         return chatsWith;
     }

@@ -1,6 +1,7 @@
 package database.chat;
 
 import database.Database;
+import model.UserInfo;
 import model.chat.ChatObject;
 import model.chat.ChatsWith;
 import model.chat.MessageObject;
@@ -240,7 +241,7 @@ public class DatabaseChat {
                 int chatId = rs.getInt("chat_id");
                 String name = rs.getString("other_user_name");
                 int userId = rs.getInt("other_user_id");
-                chatsWith.add(new ChatsWith(chatId, name, userId));
+                chatsWith.add(new ChatsWith(chatId, new UserInfo(name, userId)));
             }
 
             stmt.close();
