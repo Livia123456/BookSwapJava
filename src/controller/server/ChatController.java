@@ -47,12 +47,10 @@ public class ChatController {
                 break;
 
             case newChat: //TODO fixa så att både chattsidan öppnas och meddelandehistoriken skickas
-                if (dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), "")) == 0){
-                    dbChat.addChat(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
-                }
+                clientHandler.sendMessage(dbChat.startChatFromSearch(chatObject));
                 break;
             case open:
-                chatId = dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
+                chatId = dbChat.getChatId(new MessageObject(chatObject.getCurrentUser(), chatObject.getUser2(), ""));
                 clientHandler.sendMessage(dbChat.getChatHistory(chatId));
                 break;
 

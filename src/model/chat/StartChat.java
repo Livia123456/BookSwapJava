@@ -7,9 +7,14 @@ public class StartChat implements Serializable {
     private final static long serialVersionUID = 1177L;
     private ArrayList<MessageObject> messages;
     private ArrayList<ChatsWith> contacts;
+    private ChatsWith chatsWith;
 
     public StartChat(ArrayList<MessageObject> messages) {
         this.messages = messages;
+    }
+
+    public StartChat() {
+
     }
 
     public ArrayList<MessageObject> getMessages() {
@@ -26,5 +31,13 @@ public class StartChat implements Serializable {
 
     public void setContacts(ArrayList<ChatsWith> contacts) {
         this.contacts = contacts;
+    }
+
+    public ChatsWith getChatsWith() {
+        return chatsWith;
+    }
+
+    public void setChatsWith(ChatsWith chatsWith) {
+        this.chatsWith = chatsWith;
     }
 }

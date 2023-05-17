@@ -5,6 +5,7 @@ import model.UserInfo;
 import model.chat.ChatObject;
 import model.chat.ChatsWith;
 import model.chat.MessageObject;
+import model.chat.StartChat;
 
 
 import java.sql.Connection;
@@ -179,7 +180,7 @@ public class DatabaseChat {
      */
     public void deleteChat(ChatObject chatObject){
 
-        int chatId = getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
+        int chatId = getChatId(new MessageObject(chatObject.getCurrentUser(), chatObject.getUser2(), ""));
         try {
             semaphore.acquire();
         } catch (InterruptedException e) {
@@ -231,7 +232,7 @@ public class DatabaseChat {
                         "ON chat.user_1_id = users2.user_id " +
                         "WHERE  " +
                         "chat.user_1_id = %d OR chat.user_2_id = %d;",
-                chatObject.getUser1(), chatObject.getUser1(), chatObject.getUser1(), chatObject.getUser1());
+                chatObject.getCurrentUser(), chatObject.getCurrentUser(), chatObject.getCurrentUser(), chatObject.getCurrentUser());
 
         try {
             Statement stmt = con.createStatement();
@@ -253,5 +254,23 @@ public class DatabaseChat {
         }
         semaphore.release();
         return chatsWith;
+    }
+
+    public StartChat startChatFromSearch(ChatObject chatObject) {
+        StartChat startChat = new StartChat();
+        int chatId = getChatId(new MessageObject(chatObject.getCurrentUser(), chatObject.getUser2(), ""));
+        if (chatId == 0){
+            addChat(new MessageObject(chatObject.getCurrentUser(), chatObject.getUser2(), ""));
+        }
+        startChat.setContacts(getActiveChats(chatObject));
+        startChat.setMessages(getChatHistory(chatId));
+        for (ChatsWith cw : startChat.getContacts()) {
+            if (cw.getUserId() == chatObject.getUser2()) {
+                startChat.setChatsWith(cw);
+                break;
+            }
+        }
+
+        return startChat;
     }
 }
