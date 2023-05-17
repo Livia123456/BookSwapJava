@@ -9,14 +9,17 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Semaphore;
 
 public class DatabaseBooks {
 
     private Database db;
+    private Semaphore semaphore;
     private BookController bookController;
 
     public DatabaseBooks(BookController bookController){
-        db = new Database();
+        db = Database.getInstance();
+        semaphore = db.getDbSemaphore();
         this.bookController = bookController;
     }
 
@@ -56,6 +59,7 @@ public class DatabaseBooks {
     public ArrayList<Book> getBooksUploadedByUser(int userId) {
         ArrayList<Book> uploadedBooks = new ArrayList<>();
         try {
+            semaphore.acquire();
             Connection con = db.getDatabaseConnection();
             String QUERY = String.format("SELECT * FROM book where user_id = %d", userId);
             Statement stmt = con.createStatement();
@@ -73,7 +77,7 @@ public class DatabaseBooks {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        semaphore.release();
         return uploadedBooks;
     }
 
@@ -84,8 +88,12 @@ public class DatabaseBooks {
     public Book addBook(Book book) {
 
         //System.out.println("Vi kom hit");
-        System.out.println(book.getUploadedBy().getUserId() + book.getUploadedBy().getName());
 
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Connection con = db.getDatabaseConnection();
         String QUERY = "";
 
@@ -115,6 +123,7 @@ public class DatabaseBooks {
              e.printStackTrace();
 
         }
+        semaphore.release();
         return book;
     }
 
@@ -122,7 +131,11 @@ public class DatabaseBooks {
      * Removes a book from the database given the book's unique book ID.
      */
     public void deleteBook(int bookId) {
-
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("DELETE FROM book WHERE book_id = %d", bookId);
 
@@ -135,6 +148,7 @@ public class DatabaseBooks {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        semaphore.release();
     }
 }
 

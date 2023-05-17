@@ -5,6 +5,7 @@ import model.chat.ChatObject;
 import model.chat.MessageObject;
 
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 /**
  * This class is responsible for all the chat-related communications with the database
@@ -25,6 +26,16 @@ public class ChatController {
 
     public void addChatMessage(MessageObject messageObject){
         dbChat.addMessage(messageObject);
+
+        ArrayList<ClientHandler> connectedClients = clientHandler.getServer().getClients();
+        for (ClientHandler client : connectedClients) {
+            if (client.getCurrentUser().getUserId() == messageObject.getReceiver()) {
+                int chatId = dbChat.getChatId(messageObject);
+                client.sendMessage(dbChat.getChatHistory(chatId));
+            }
+        }
+
+
     }
 
 

@@ -1,6 +1,7 @@
 package database.chat;
 
 import database.Database;
+import model.UserInfo;
 import model.chat.ChatObject;
 import model.chat.ChatsWith;
 import model.chat.MessageObject;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 /**
  * Handles the queries associated with all the chat functions of the system.
@@ -19,8 +21,10 @@ import java.util.ArrayList;
 public class DatabaseChat {
 
     private Database db;
+    private Semaphore semaphore;
     public DatabaseChat(){
-        db = new Database();
+        db = Database.getInstance();
+        semaphore = db.getDbSemaphore();
     }
 
 
@@ -34,6 +38,11 @@ public class DatabaseChat {
         String message = messageObject.getMessage();
         message = message.replaceAll("'", "''"); // Escape apostrophes
 
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("INSERT INTO messages(sender, " +
                         "message, message_date, chat_id) VALUES " +
@@ -52,13 +61,18 @@ public class DatabaseChat {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        semaphore.release();
     }
 
     /**
      * Adds a new chat.
      */
     public void addChat(MessageObject messageObject) {
-
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("INSERT INTO chat " +
                 "(user_1_id, user_2_id) VALUES (%d, %d)", messageObject.getSender(), messageObject.getReceiver());
@@ -74,6 +88,7 @@ public class DatabaseChat {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        semaphore.release();
     }
 
 
@@ -84,29 +99,29 @@ public class DatabaseChat {
 
         int chatId = 0;
 
-        Connection con = db.getDatabaseConnection();
-        String QUERY = String.format("SELECT chat_id FROM chat WHERE " +
-                        "user_1_id = %d AND " +
-                        "user_2_id = %d OR " +
-                        "user_1_id = %d AND " +
-                        "user_2_id = %d", messageObject.getSender(), messageObject.getReceiver(),
-                messageObject.getSender(), messageObject.getReceiver());
+            Connection con = db.getDatabaseConnection();
+            String QUERY = String.format("SELECT chat_id FROM chat WHERE " +
+                            "user_1_id = %d AND " +
+                            "user_2_id = %d OR " +
+                            "user_1_id = %d AND " +
+                            "user_2_id = %d", messageObject.getSender(), messageObject.getReceiver(),
+                    messageObject.getReceiver(), messageObject.getSender());
 
-        try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(QUERY);
+            try {
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(QUERY);
 
-            while (rs.next()) {
-                chatId = rs.getInt("chat_id");
+                while (rs.next()) {
+                    chatId = rs.getInt("chat_id");
+                }
+
+                stmt.close();
+                con.close();
+                db.terminateIdle();
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
-
-            stmt.close();
-            con.close();
-            db.terminateIdle();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
         return chatId;
     }
@@ -118,6 +133,8 @@ public class DatabaseChat {
     public ArrayList<MessageObject> getChatHistory(int chat_id) {
 
         ArrayList<MessageObject> chatHistory = new ArrayList<>();
+        try {
+            semaphore.acquire();
 
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("SELECT m.message, m.sender, m.message_date, c.user_1_id, c.user_2_id " +
@@ -150,7 +167,10 @@ public class DatabaseChat {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        semaphore.release();
         return chatHistory;
     }
 
@@ -160,7 +180,11 @@ public class DatabaseChat {
     public void deleteChat(ChatObject chatObject){
 
         int chatId = getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
-
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("DELETE FROM messages WHERE chat_id = %d", chatId);
 
@@ -175,6 +199,7 @@ public class DatabaseChat {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        semaphore.release();
     }
 
 
@@ -184,7 +209,11 @@ public class DatabaseChat {
     public ArrayList<ChatsWith> getActiveChats(ChatObject chatObject) {
 
         ArrayList<ChatsWith> chatsWith = new ArrayList<>();
-
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("SELECT chat.chat_id, " +
                         "CASE " +
@@ -212,7 +241,7 @@ public class DatabaseChat {
                 int chatId = rs.getInt("chat_id");
                 String name = rs.getString("other_user_name");
                 int userId = rs.getInt("other_user_id");
-                chatsWith.add(new ChatsWith(chatId, name, userId));
+                chatsWith.add(new ChatsWith(chatId, new UserInfo(name, userId)));
             }
 
             stmt.close();
@@ -222,7 +251,7 @@ public class DatabaseChat {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        semaphore.release();
         return chatsWith;
     }
 }
