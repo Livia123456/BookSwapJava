@@ -1,6 +1,7 @@
 package controller.server;
 
 import database.chat.DatabaseChat;
+import model.chat.ChatHistory;
 import model.chat.ChatObject;
 import model.chat.MessageObject;
 
@@ -31,7 +32,7 @@ public class ChatController {
         for (ClientHandler client : connectedClients) {
             if (client.getCurrentUser().getUserId() == messageObject.getReceiver()) {
                 int chatId = dbChat.getChatId(messageObject);
-                client.sendMessage(dbChat.getChatHistory(chatId));
+                client.sendMessage(new ChatHistory(dbChat.getChatHistory(chatId)));
             }
         }
 
@@ -54,8 +55,13 @@ public class ChatController {
             }
 
             case open:
+<<<<<<< Updated upstream
                 chatId = dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
                 clientHandler.sendMessage(dbChat.getChatHistory(chatId));
+=======
+                chatId = dbChat.getChatId(new MessageObject(chatObject.getCurrentUser(), chatObject.getUser2(), ""));
+                clientHandler.sendMessage(new ChatHistory(dbChat.getChatHistory(chatId)));
+>>>>>>> Stashed changes
                 break;
 
             case delete:
