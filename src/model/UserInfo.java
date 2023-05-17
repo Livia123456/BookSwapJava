@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import model.chat.*;
 
+import javax.swing.*;
+
 /**
  * Class to store information about a user.
  * @author Livia Tengelin, Kasper Lindberg, Sebasitan Zulj
@@ -18,6 +20,7 @@ public class UserInfo implements Serializable {
     private boolean correctInfo = false;
     private ArrayList<Book> currentUsersUploadedBooks;
     private ArrayList<ChatsWith> chatsWith;
+    private ImageIcon profileImage;
 
 
 
@@ -89,4 +92,11 @@ public class UserInfo implements Serializable {
 
     public int getUserId() { return userId; }
     public void setUserId(int userId) { this.userId = userId; }
+
+    public ImageIcon getProfileImage() {
+        return profileImage;
+    }
+    public void setProfileImage(ImageIcon profileImage) {
+        this.profileImage = profileImage;
+    }
 }
