@@ -88,6 +88,7 @@ public class DatabaseBooks {
     public Book addBook(Book book) {
 
         //System.out.println("Vi kom hit");
+
         try {
             semaphore.acquire();
         } catch (InterruptedException e) {

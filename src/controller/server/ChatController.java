@@ -6,7 +6,6 @@ import model.chat.ChatObject;
 import model.chat.MessageObject;
 
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 
 /**
  * This class is responsible for all the chat-related communications with the database
@@ -28,8 +27,7 @@ public class ChatController {
     public void addChatMessage(MessageObject messageObject){
         dbChat.addMessage(messageObject);
 
-        ArrayList<ClientHandler> connectedClients = clientHandler.getServer().getClients();
-        for (ClientHandler client : connectedClients) {
+        for (ClientHandler client : clientHandler.getServer().getClients()) {
             if (client.getCurrentUser().getUserId() == messageObject.getReceiver()) {
                 int chatId = dbChat.getChatId(messageObject);
                 client.sendMessage(new ChatHistory(dbChat.getChatHistory(chatId)));
@@ -49,19 +47,12 @@ public class ChatController {
                 clientHandler.sendMessage(dbChat.getActiveChats(chatObject));
                 break;
 
-            case newChat:
-                if (dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), "")) == 0){
-                    dbChat.addChat(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
-            }
-
+            case newChat: //TODO fixa så att både chattsidan öppnas och meddelandehistoriken skickas
+                clientHandler.sendMessage(dbChat.startChatFromSearch(chatObject));
+                break;
             case open:
-<<<<<<< Updated upstream
-                chatId = dbChat.getChatId(new MessageObject(chatObject.getUser1(), chatObject.getUser2(), ""));
-                clientHandler.sendMessage(dbChat.getChatHistory(chatId));
-=======
                 chatId = dbChat.getChatId(new MessageObject(chatObject.getCurrentUser(), chatObject.getUser2(), ""));
-                clientHandler.sendMessage(new ChatHistory(dbChat.getChatHistory(chatId)));
->>>>>>> Stashed changes
+                clientHandler.sendMessage(dbChat.getChatHistory(chatId));
                 break;
 
             case delete:

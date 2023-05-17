@@ -19,12 +19,12 @@ public class UserInfo implements Serializable {
     private ArrayList<Book> currentUsersUploadedBooks;
     private ArrayList<ChatsWith> chatsWith;
 
-
+//TODO skapa builder!!
 
     public UserInfo(Email email, String password) {
         this.email = email;
         this.password = password;
-        this.currentUsersUploadedBooks = new ArrayList<>();
+        this.currentUsersUploadedBooks = new ArrayList<>(); //todo
         this.chatsWith = new ArrayList<>();
     }
 
@@ -32,6 +32,15 @@ public class UserInfo implements Serializable {
         this.email = email;
         this.userId = userId;
         this.name = name;
+    }
+
+    public UserInfo(String name, int userId) {
+        this.userId = userId;
+        this.name = name;
+    }
+
+    public UserInfo(int userId) {
+        this.userId = userId;
     }
 
     public ArrayList<ChatsWith> getChatsWith() {

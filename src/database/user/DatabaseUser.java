@@ -42,6 +42,9 @@ public class DatabaseUser {
             con.close();
             db.terminateIdle();
 
+            int userId = getUserId(userInfo);
+            userInfo.setUserId(userId);
+
         } catch (org.postgresql.util.PSQLException e) {}
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -142,7 +145,7 @@ public class DatabaseUser {
         }
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("SELECT user_id FROM users WHERE user_email LIKE '%s' AND user_password LIKE '%s' ",
-                userInfo.getEmail(), userInfo.getPassword());
+                userInfo.getEmail().getEmailAddress(), userInfo.getPassword());
 
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery(QUERY);
