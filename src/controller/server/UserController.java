@@ -6,6 +6,11 @@ import model.Email;
 import model.UserInfo;
 import model.UserInfoUpdate;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.SQLException;
@@ -35,6 +40,8 @@ public class UserController {
                 currentUser = userInfo;
                 currentUser.setCurrentUsersUploadedBooks(
                         clientHandler.getBookController().loadCurrentUsersUploadedBooks());
+                currentUser.setProfileImage(getProfileImage(currentUser.getUserId()));
+                //System.out.println(getProfileImage(currentUser.getUserId()));
                 oos.writeObject(currentUser);
                 oos.flush();
             }
@@ -49,6 +56,7 @@ public class UserController {
             throw new RuntimeException(e);
         }
     }
+
 
     private void createNewUser(UserInfo userInfo) {
         dbUser.newUser(userInfo);
@@ -101,4 +109,60 @@ public class UserController {
     }
 
 
+    public void savingImage(ImageIcon image) {
+
+        File directory = new File("profile_images");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        String newFilePath = String.format("profile_images/%d.jpg", currentUser.getUserId());
+
+        File newFile = new File(newFilePath);
+        try {
+            imageToFile(image, newFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void imageToFile(ImageIcon image, File file) throws IOException {
+
+        BufferedImage bufferedImage = new BufferedImage(
+                image.getIconWidth(),
+                image.getIconHeight(),
+                BufferedImage.TYPE_INT_RGB
+        );
+        Graphics graphics = bufferedImage.createGraphics();
+
+        image.paintIcon(null, graphics, 0, 0);
+        graphics.dispose();
+
+        ImageIO.write(bufferedImage, "jpg", file);
+    }
+
+    private ImageIcon getProfileImage(int userId) {
+
+        File folder = new File("profile_images");
+        File[] files = folder.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    String fileName = file.getName();
+                    String[] fileNameParts = fileName.split("\\.");
+                    String userIdString = fileNameParts[0];
+
+                    try {
+                        int fileUserId = Integer.parseInt(userIdString);
+                        if (fileUserId == userId) {
+                            return new ImageIcon(file.getAbsolutePath());
+                        }
+                    } catch (NumberFormatException e) {
+                    }
+                }
+            }
+        }
+       return null;
+    }
 }
