@@ -119,7 +119,6 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void imageToFile(ImageIcon image, File file) throws IOException {
@@ -137,7 +136,7 @@ public class UserController {
         ImageIO.write(bufferedImage, "jpg", file);
     }
 
-    private ImageIcon getProfileImage(int userId) {
+    public ImageIcon getProfileImage(int userId) {
 
         File folder = new File("profile_images");
         File[] files = folder.listFiles();
