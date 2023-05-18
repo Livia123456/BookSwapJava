@@ -162,6 +162,6 @@ public class UserController {
                 }
             }
         }
-       return null;
+       return new ImageIcon("profile_images/user.jpg");
     }
 }
