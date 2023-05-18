@@ -73,6 +73,9 @@ public class ClientHandler {
         return userController.getCurrentUser();
     }
 
+    public UserController getUserController() {
+        return userController;
+    }
 
     public BookController getBookController() {
         return bookController;

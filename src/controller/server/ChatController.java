@@ -52,6 +52,7 @@ public class ChatController {
             case open:
                 chatId = dbChat.getChatId(new MessageObject(chatObject.getCurrentUser(), chatObject.getUser2(), ""));
                 clientHandler.sendMessage(dbChat.getChatHistory(chatId));
+                clientHandler.sendMessage(clientHandler.getUserController().getProfileImage(chatObject.getUser2()));
                 break;
 
             case delete:
