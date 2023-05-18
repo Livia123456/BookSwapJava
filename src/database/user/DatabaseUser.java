@@ -5,10 +5,7 @@ import model.AccountToDelete;
 import model.UserInfo;
 import model.UserInfoUpdate;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.concurrent.Semaphore;
 
 public class DatabaseUser {
@@ -121,11 +118,11 @@ public class DatabaseUser {
             throw new RuntimeException(e);
         }
         Connection con = db.getDatabaseConnection();
-        String QUERY = String.format("DELETE FROM users WHERE user_id = %d", userId);
+        String QUERY = String.format("CALL delete_user(%d)", userId);
 
         try {
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(QUERY);
+            CallableStatement stmt = con.prepareCall(QUERY);
+            stmt.executeUpdate();
 
             stmt.close();
             con.close();
