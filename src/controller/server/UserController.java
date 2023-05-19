@@ -1,5 +1,6 @@
 package controller.server;
 
+import database.chat.DatabaseChat;
 import database.user.DatabaseUser;
 import model.AccountToDelete;
 import model.Email;
@@ -101,6 +102,8 @@ public class UserController {
 
     public void deleteAccount(AccountToDelete accountToDelete) {
         int userId = accountToDelete.getUserToDelete().getUserId();
+        DatabaseChat dbChat = new DatabaseChat();
+        dbChat.deleteMessagesFromId(userId);
         dbUser.removeUserFromDatabase(userId);
     }
 
