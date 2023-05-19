@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -93,9 +94,56 @@ public class DatabaseChat {
     }
 
 
-    /**
-     * Fetches and returns a chatId from a message object.
-     */
+    public void deleteMessagesFromId(int userId) {
+        ArrayList<Integer> list = getChat(userId);
+
+        Connection con = db.getDatabaseConnection();
+
+        for (int i = 0; i < list.size(); i++) {
+
+            String QUERY = String.format("DELETE FROM messages WHERE chat_id = %d", i);
+            try {
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate(QUERY);
+
+                stmt.close();
+                con.close();
+                db.terminateIdle();
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    public ArrayList<Integer> getChat(int id) {
+        ArrayList<Integer> list = new ArrayList<>();
+        Connection con = db.getDatabaseConnection();
+        String QUERY = String.format("SELECT chat_id FROM chat WHERE " +
+                        "user_1_id = %d AND " +
+                        "user_2_id = %d",
+                         id, id);
+
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(QUERY);
+
+            while (rs.next()) {
+                list.add(rs.getInt("chat_id"));
+            }
+
+            stmt.close();
+            con.close();
+            db.terminateIdle();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return list;
+    }
+
     public int getChatId(MessageObject messageObject){
 
         int chatId = 0;
@@ -143,7 +191,7 @@ public class DatabaseChat {
                 "JOIN chat c ON m.chat_id = c.chat_id " +
                 "WHERE m.chat_id = %d " +
                 "ORDER BY m.message_date DESC " +
-                "LIMIT 10", chat_id);
+                "LIMIT 20", chat_id);
 
         try {
             Statement stmt = con.createStatement();
