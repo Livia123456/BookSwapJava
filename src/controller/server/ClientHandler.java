@@ -152,7 +152,10 @@ public class ClientHandler {
 
                     else if (message instanceof ImageIcon) {
                         userController.savingImage((ImageIcon) message);
+                    }
 
+                    else if (message instanceof BookUpdate) {
+                        bookController.updateBook((BookUpdate) message);
                     }
 
 

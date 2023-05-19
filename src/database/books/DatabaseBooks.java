@@ -3,6 +3,7 @@ package database.books;
 import controller.server.BookController;
 import database.Database;
 import model.Book;
+import model.BookUpdate;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -84,10 +85,7 @@ public class DatabaseBooks {
     /**
      * Adds a book from parameters.
      */
-    //public void addBook(int user_id, String title, String author, String release_year, String genre, String imagePath) {
     public Book addBook(Book book) {
-
-        //System.out.println("Vi kom hit");
 
         try {
             semaphore.acquire();
@@ -148,6 +146,42 @@ public class DatabaseBooks {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        semaphore.release();
+    }
+
+    public void updateBookInfo(BookUpdate book) {
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Connection con = db.getDatabaseConnection();
+        String QUERY = "";
+
+        if (book.getYear() == null || book.getYear().isEmpty() || book.getYear().isBlank()) {
+            QUERY = String.format("UPDATE book SET title = '%s', author = '%s', " +
+                            "genre = '%s', edition = '%s', publisher = '%s', " +
+                            "isbn = '%s' WHERE book_id = %d", book.getTitle(), book.getAuthor(),
+                    book.getGenre(), book.getEdition(), book.getPublisher(),
+                    book.getIsbn(), book.getBookId());
+        } else {
+            QUERY = String.format("UPDATE book SET title = '%s', author = '%s', " +
+                            "release_year = '%s', genre = '%s', edition = '%s', publisher = '%s', " +
+                            "isbn = '%s' WHERE book_id = %d", book.getTitle(), book.getAuthor(),
+                    book.getYear(), book.getGenre(), book.getEdition(), book.getPublisher(),
+                    book.getIsbn(), book.getBookId());
+        }
+
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(QUERY);
+            stmt.close();
+            con.close();
+            db.terminateIdle();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         semaphore.release();
     }
 }

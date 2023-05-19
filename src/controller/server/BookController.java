@@ -3,6 +3,7 @@ package controller.server;
 import database.books.DatabaseBooks;
 import model.Book;
 import model.BookToDelete;
+import model.BookUpdate;
 import model.UpdateBookList;
 
 import java.io.IOException;
@@ -48,4 +49,8 @@ public class BookController {
         return dbBook.getBooksUploadedByUser(clientHandler.getCurrentUser().getUserId());
     }
 
+    public void updateBook(BookUpdate book) {
+        dbBook.updateBookInfo(book);
+
+    }
 }
