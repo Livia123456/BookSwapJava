@@ -97,18 +97,20 @@ public class DatabaseChat {
     public void deleteMessagesFromId(int userId) {
         ArrayList<Integer> list = getChat(userId);
 
-        Connection con = db.getDatabaseConnection();
-
         for (int i = 0; i < list.size(); i++) {
 
-            String QUERY = String.format("DELETE FROM messages WHERE chat_id = %d", i);
+            Connection con = db.getDatabaseConnection();
+            String QUERY = String.format("DELETE FROM messages WHERE chat_id = %d", list.get(i));
             try {
                 Statement stmt = con.createStatement();
                 stmt.executeUpdate(QUERY);
 
+
+
                 stmt.close();
                 con.close();
                 db.terminateIdle();
+
 
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -121,7 +123,7 @@ public class DatabaseChat {
         ArrayList<Integer> list = new ArrayList<>();
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("SELECT chat_id FROM chat WHERE " +
-                        "user_1_id = %d AND " +
+                        "user_1_id = %d OR " +
                         "user_2_id = %d",
                          id, id);
 
