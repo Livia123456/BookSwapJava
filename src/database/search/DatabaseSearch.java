@@ -167,7 +167,8 @@ public class DatabaseSearch {
                         genre(rs.getString("genre")).
                         edition(rs.getString("edition")).
                         publisher(rs.getString("publisher")).
-                        isbn(rs.getString("isbn")).build();
+                        isbn(rs.getString("isbn")).
+                        uploadedBy(new UserInfo(rs.getInt("user_id"))).build();
 
                 books.add(book);
             }
