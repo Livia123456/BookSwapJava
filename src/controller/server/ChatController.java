@@ -2,9 +2,11 @@ package controller.server;
 
 import database.chat.DatabaseChat;
 import model.chat.ChatObject;
+import model.chat.ChatsWith;
 import model.chat.MessageObject;
 
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 /**
  * This class is responsible for all the chat-related communications with the database
@@ -43,10 +45,16 @@ public class ChatController {
         switch(chatObject.getStatus()) {
 
             case populate:
-                clientHandler.sendMessage(dbChat.getActiveChats(chatObject));
+                ArrayList<ChatsWith> chatsWiths = dbChat.getActiveChats(chatObject);
+                for (ChatsWith cw :
+                        chatsWiths) {
+                    cw.getUser().setCurrentUsersUploadedBooks(
+                            clientHandler.getBookController().loadBooksUploadedByUser(cw.getUserId()));
+                }
+                clientHandler.sendMessage(chatsWiths);
                 break;
 
-            case newChat: //TODO fixa så att både chattsidan öppnas och meddelandehistoriken skickas
+            case newChat:
                 clientHandler.sendMessage(dbChat.startChatFromSearch(chatObject));
                 break;
             case open:

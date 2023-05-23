@@ -49,6 +49,9 @@ public class BookController {
         return dbBook.getBooksUploadedByUser(clientHandler.getCurrentUser().getUserId());
     }
 
+    public ArrayList<Book> loadBooksUploadedByUser(int userID) {
+        return dbBook.getBooksUploadedByUser(userID);
+    }
     public void updateBook(BookUpdate book) {
         dbBook.updateBookInfo(book);
 

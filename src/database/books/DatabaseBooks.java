@@ -60,7 +60,6 @@ public class DatabaseBooks {
     public ArrayList<Book> getBooksUploadedByUser(int userId) {
         ArrayList<Book> uploadedBooks = new ArrayList<>();
         try {
-            semaphore.acquire();
             Connection con = db.getDatabaseConnection();
             String QUERY = String.format("SELECT * FROM book where user_id = %d", userId);
             Statement stmt = con.createStatement();
@@ -78,7 +77,6 @@ public class DatabaseBooks {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        semaphore.release();
         return uploadedBooks;
     }
 
