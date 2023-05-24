@@ -7,8 +7,10 @@
     <list default="true" id="84f82b81-0de1-48b7-ab63-a737c5c45882" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/server/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/server/BookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/server/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/server/ChatController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/database/books/DatabaseBooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/books/DatabaseBooks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/BookUpdate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/BookUpdate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/chat/StartChat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/chat/StartChat.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

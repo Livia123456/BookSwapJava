@@ -1,5 +1,6 @@
 package model.chat;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -8,6 +9,7 @@ public class StartChat implements Serializable {
     private ArrayList<MessageObject> messages;
     private ArrayList<ChatsWith> contacts;
     private ChatsWith chatsWith;
+    private ImageIcon image;
 
     public StartChat(ArrayList<MessageObject> messages) {
         this.messages = messages;
@@ -39,5 +41,13 @@ public class StartChat implements Serializable {
 
     public void setChatsWith(ChatsWith chatsWith) {
         this.chatsWith = chatsWith;
+    }
+
+    public ImageIcon getImage() {
+        return image;
+    }
+
+    public void setImage(ImageIcon image) {
+        this.image = image;
     }
 }
