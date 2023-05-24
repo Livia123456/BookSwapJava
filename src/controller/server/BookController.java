@@ -53,7 +53,7 @@ public class BookController {
         return dbBook.getBooksUploadedByUser(userID);
     }
     public void updateBook(BookUpdate book) {
-        dbBook.updateBookInfo(book);
-
+        clientHandler.sendMessage(dbBook.updateBookInfo(book));
+        updateCurrentUsersBooks();
     }
 }
