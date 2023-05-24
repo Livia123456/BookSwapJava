@@ -147,7 +147,7 @@ public class DatabaseBooks {
         semaphore.release();
     }
 
-    public void updateBookInfo(BookUpdate book) {
+    public BookUpdate updateBookInfo(BookUpdate book) {
         try {
             semaphore.acquire();
         } catch (InterruptedException e) {
@@ -176,11 +176,14 @@ public class DatabaseBooks {
             stmt.close();
             con.close();
             db.terminateIdle();
+            book.setInfoChanged(true);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         semaphore.release();
+        return book;
     }
 }
 
