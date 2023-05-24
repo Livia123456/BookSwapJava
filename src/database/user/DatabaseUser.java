@@ -135,11 +135,7 @@ public class DatabaseUser {
 
     public int getUserId(UserInfo userInfo) throws SQLException {
         int userId = 0;
-        try {
-            semaphore.acquire();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
         Connection con = db.getDatabaseConnection();
         String QUERY = String.format("SELECT user_id FROM users WHERE user_email LIKE '%s' AND user_password LIKE '%s' ",
                 userInfo.getEmail().getEmailAddress(), userInfo.getPassword());
@@ -154,7 +150,6 @@ public class DatabaseUser {
         stmt.close();
         con.close();
         db.terminateIdle();
-        semaphore.release();
         return userId;
     }
 
