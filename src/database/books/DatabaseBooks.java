@@ -94,17 +94,17 @@ public class DatabaseBooks {
         String QUERY = "";
 
         if (book.getRelease_date() == null || book.getRelease_date().isEmpty() || book.getRelease_date().isBlank()) {
-            QUERY = String.format("insert into book(book_id, user_id, title, author, genre, image_path, edition, " +
-                            "publisher, isbn) values(default, %d, '%s', '%s', '%s', '%s', '%s', '%s', '%s');",
+            QUERY = String.format("insert into book(book_id, user_id, title, author, genre, edition, " +
+                            "publisher, isbn) values(default, %d, '%s', '%s', '%s', '%s', '%s', '%s');",
                     book.getUploadedBy().getUserId(), book.getTitle(), book.getAuthor(),
-                    book.getGenre(), "imagepath...", book.getEdition(), book.getPublisher(), book.getIsbn());
+                    book.getGenre(), book.getEdition(), book.getPublisher(), book.getIsbn());
 
         } else {
 
-            QUERY = String.format("insert into book(book_id, user_id, title, author, release_year, genre, image_path, " +
-                            "edition, publisher, isbn) values(default, %d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');",
+            QUERY = String.format("insert into book(book_id, user_id, title, author, release_year, genre, " +
+                            "edition, publisher, isbn) values(default, %d, '%s', '%s', '%s', '%s', '%s', '%s', '%s');",
                     book.getUploadedBy().getUserId(), book.getTitle(), book.getAuthor(), book.getRelease_date(),
-                    book.getGenre(), "imagepath...", book.getEdition(), book.getPublisher(), book.getIsbn());
+                    book.getGenre(), book.getEdition(), book.getPublisher(), book.getIsbn());
         }
         try {
             Statement stmt = con.createStatement();
